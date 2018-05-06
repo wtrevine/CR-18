@@ -12,10 +12,12 @@
 #include <xc.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "prototype.h"
-#include "variables.h"
 #include "definitions.h"
+#include "variables.h"
+
 
 
 #endif

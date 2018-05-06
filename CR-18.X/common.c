@@ -1,27 +1,35 @@
 #include "main.h"
 
-extern cr18_t cr18;
-
 void init_pic(void)
 {
-  ANSA = 0x0000;
-  ANSB = 0x0000;
+    /* Configura oscilador */
+    OSCCONbits.NOSC = 0b101;
+    OSCCONbits.SOSCDRV = 0;
+    OSCCONbits.SOSCEN = 0;
+    OSCCONbits.OSWEN = 0;
   
-  OSCCONbits.COSC = 0;
-  OSCCONbits.NOSC = 0;
-  OSCCONbits.CLKLOCK = 0;
-  OSCCONbits.LOCK = 0;
-  OSCCONbits.SOSCDRV = 0;
-  OSCCONbits.SOSCEN = 0;
-  OSCCONbits.OSWEN = 0;
+    /* Configura divisão de oscilador */
+    CLKDIVbits.ROI = 0;
+    CLKDIVbits.DOZE = 0;
+    CLKDIVbits.DOZEN = 0;
+    CLKDIVbits.RCDIV = 0;
   
-  CLKDIVbits.ROI = 0;
-  CLKDIVbits.DOZE = 0;
-  CLKDIVbits.DOZEN = 0;
-  CLKDIVbits.RCDIV = 0;
-  
-  OSCTUNbits.TUN = 0;
+    /* Configura portas analogicas */
+    ANSA = 0;
+    ANSB = 0;
     
+    /* Configura TIMER 1 */
+    T1CONbits.TON = 1;
+    T1CONbits.T1ECS = 0b10;
+    T1CONbits.TCKPS = 0b00; //Prescale
+    T1CONbits.TCS = 1;
+    
+    /* Configura UART*/
+    U1MODEbits.UARTEN = 0;
+    U1MODEbits.USIDL = 1;
+    U1STAbits.UTXEN = 1;
+    
+    /* Configura PORTs */  
     PORTA = 0;
     PORTB = 0;
     TRISA = 0;
@@ -30,6 +38,28 @@ void init_pic(void)
     TRISAbits.TRISA4 = 1;
     TRISBbits.TRISB4 = 1;
     TRISBbits.TRISB15 = 1;
+    
+    /* Configura PULL UP*/
+    CNPU1bits.CN0PUE = 1;
+    CNPU1bits.CN1PUE = 1;
+    
+    /* Configura pinos de mudança de estados */
+    CNEN1bits.CN0IE = 1;
+    CNEN1bits.CN1IE = 1;
+    
+    /* Configura interrupções */
+    IFS0bits.T1IF = 0;
+    IEC0bits.T1IE = 1;
+    
+    IFS0bits.U1RXIF = 0;
+    IEC0bits.U1RXIE = 1;
+    
+    IFS1bits.CNIF = 0;
+    IEC1bits.CNIE = 1;
+    
+    IFS4bits.HLVDIF = 0;
+    IEC4bits.HLVDIE = 1;
+    
        
 }
 

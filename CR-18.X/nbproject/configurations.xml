@@ -7,6 +7,7 @@
       <itemPath>main.h</itemPath>
       <itemPath>variables.h</itemPath>
       <itemPath>definitions.h</itemPath>
+      <itemPath>prototype.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -17,7 +18,8 @@
                    projectFiles="true">
       <itemPath>main.c</itemPath>
       <itemPath>common.c</itemPath>
-      <itemPath>prototype.h</itemPath>
+      <itemPath>app_lora.c</itemPath>
+      <itemPath>uart.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

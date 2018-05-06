@@ -12,5 +12,13 @@
 void init_pic(void);
 void blink_led(void);
 
+/* app_lora */
+void LORA_TrataComandosLoRa(void);
+void LORA_VerificaRespostaLoRa(unsigned int wEstadoCasoSucesso, unsigned int wEstadoCasoErro, unsigned int wTentativas);
+void LORA_MaquinaDeControleLoRa(void);
+
+/* uart */
+void UART_UART2EnviaTxBufferASCII(unsigned char *byBufferTxASCII);
+
 #endif	
 

@@ -1,5 +1,5 @@
-build/default/production/main.o:  \
-main.c  \
+build/default/production/uart.o:  \
+uart.c  \
 main.h  \
 prototype.h  \
 definitions.h  \
