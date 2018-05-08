@@ -10,6 +10,7 @@
 
 /* common */
 void init_pic(void);
+void init_variables(void);
 void blink_led(void);
 
 /* app_lora */

@@ -44,6 +44,7 @@ cr18_t cr18;
 int main (void)
 {
     init_pic();
+    init_variables();
     
     while(1) {
         

@@ -20,6 +20,7 @@
       <itemPath>common.c</itemPath>
       <itemPath>app_lora.c</itemPath>
       <itemPath>uart.c</itemPath>
+      <itemPath>interrupt.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
