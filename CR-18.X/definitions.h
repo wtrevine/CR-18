@@ -68,110 +68,137 @@
 
 
 //***************************************************************** struct main
+
 typedef struct {
     uint16_t period;
 } led_t;
 
 typedef struct {
-    uint8_t enable;
-    uint8_t status;   
+    uint8_t status;
 } lora_t;
 
 typedef struct {
-    uint8_t status;
+    uint8_t cr18;
+    uint8_t lora;
+    uint8_t uart;
+} status_t;
+
+typedef struct {
+    status_t status;
     led_t led;
     lora_t lora;
-    
-}cr18_t;
+    uint8_t bt_front_previous;
+    uint8_t bt_back_previous;
+
+} cr18_t;
 //*****************************************************************************
-//************************************************************** struct app_lora
+
+//***************************************************** struct process_counters
 typedef struct {
-  unsigned char byEstadoTrataComandos;    //-- Fazer virar um FLAG
-  //unsigned char byAguardaMaisRespostasDoComando;  //-- Fazer virar um FLAG
-  unsigned int  wTimeOutResposta;
-  unsigned char byContadorErrosLoRa;
+    uint8_t enable;
+    uint8_t overflow;
+    uint16_t count;
+    uint16_t count_max;
+    uint16_t count_overflow;
+} timeout_t;
+//*****************************************************************************
+
+//************************************************************** struct app_lora
+
+typedef struct {
+    unsigned char byEstadoTrataComandos; //-- Fazer virar um FLAG
+    //unsigned char byAguardaMaisRespostasDoComando;  //-- Fazer virar um FLAG
+    unsigned int wTimeOutResposta;
+    unsigned char byContadorErrosLoRa;
 } ST_LORA;
 
 typedef union {
-  struct {
-    unsigned  char  byB0;
-    unsigned  char  byB1;
-  } stByte;
-  unsigned int  wWord;
+
+    struct {
+        unsigned char byB0;
+        unsigned char byB1;
+    } stByte;
+    unsigned int wWord;
 } UN_INT_TO_CHAR;
 
 typedef struct {
-  unsigned char byEstadoAtual;        // Estado do tratamento do Buffer entre STX e ETX
-  unsigned char byBufferOk;
-  unsigned char byTimeOut;            
-  unsigned int  wTimeOut;             // Contador de tempo (Time-out)
-  unsigned int  wIndexBuffer;         // Indice do Buffer Rx/Tx
+    unsigned char byEstadoAtual; // Estado do tratamento do Buffer entre STX e ETX
+    unsigned char byBufferOk;
+    unsigned char byTimeOut;
+    unsigned int wTimeOut; // Contador de tempo (Time-out)
+    unsigned int wIndexBuffer; // Indice do Buffer Rx/Tx
 } ST_UART;
 
-typedef struct  {
-  unsigned      bFlag1s             :1; //-- bit 00 --//
-  unsigned      bFlagEDP0           :1; //-- bit 01 --//
-  unsigned      bFlagEDP1           :1; //-- bit 02 --//
-  unsigned      bFlagEDP2           :1; //-- bit 03 --//
-  unsigned      bFlagEDN            :1; //-- bit 04 --//
-  unsigned      bFlagVBAT           :1; //-- bit 05 --//
-  unsigned      bFlagVBAT_BKP       :1; //-- bit 06 --//
-  unsigned      bFlagACCEL          :1; //-- bit 09 --//
-  unsigned      bFlagDebounceACCEL  :1; //-- bit 09 --//
-  unsigned      bFlagTxPrimVez      :1; //-- bit 07 --//
-  unsigned      bFlag_T_Tx          :1; //-- bit 08 --//
-  unsigned      bFlag11             :1; //-- bit 11 --//
-  unsigned      bFlag12             :1; //-- bit 12 --//
-  unsigned      bFlag13             :1; //-- bit 13 --//
-  unsigned      bFlag14             :1; //-- bit 14 --//
-  unsigned      bFlag15             :1; //-- bit 15 --//
-  unsigned int  wContadorTempo1s;
-  unsigned int  wContadorTempoACCEL;
-  unsigned int  wContadorTempoDebounceACCEL;
-  unsigned int  wT_Tx;
-  unsigned int  wT_TimeoutMaqLoRa;
+typedef struct {
+    unsigned bFlag1s : 1; //-- bit 00 --//
+    unsigned bFlagEDP0 : 1; //-- bit 01 --//
+    unsigned bFlagEDP1 : 1; //-- bit 02 --//
+    unsigned bFlagEDP2 : 1; //-- bit 03 --//
+    unsigned bFlagEDN : 1; //-- bit 04 --//
+    unsigned bFlagVBAT : 1; //-- bit 05 --//
+    unsigned bFlagVBAT_BKP : 1; //-- bit 06 --//
+    unsigned bFlagACCEL : 1; //-- bit 09 --//
+    unsigned bFlagDebounceACCEL : 1; //-- bit 09 --//
+    unsigned bFlagTxPrimVez : 1; //-- bit 07 --//
+    unsigned bFlag_T_Tx : 1; //-- bit 08 --//
+    unsigned bFlag11 : 1; //-- bit 11 --//
+    unsigned bFlag12 : 1; //-- bit 12 --//
+    unsigned bFlag13 : 1; //-- bit 13 --//
+    unsigned bFlag14 : 1; //-- bit 14 --//
+    unsigned bFlag15 : 1; //-- bit 15 --//
+    unsigned int wContadorTempo1s;
+    unsigned int wContadorTempoACCEL;
+    unsigned int wContadorTempoDebounceACCEL;
+    unsigned int wT_Tx;
+    unsigned int wT_TimeoutMaqLoRa;
 } ST_TEMPORIZACAO;
 //*****************************************************************************
 
 //******************************************************************* enum main
-enum status {
-    STARTED=0,              // Pisca led's indicando inicialização
-    START,                  // Aguarda ser fixado na parede
-    VIOLATION,              // Violado - Botão Traseiro solto
-    ACTIVE,                 // Ativo - Em funcionamento normal
-    ALERT,                  // Modo alerta - Botão frontal precionado
-    ERROR                   // Modo de erro
+
+enum status_cr18 {
+    STARTED = 0, // Pisca led's indicando inicialização
+    START, // Aguarda ser fixado na parede
+    VIOLATION, // Violado - Botão Traseiro solto
+    ACTIVE, // Ativo - Em funcionamento normal
+    ALERT, // Modo alerta - Botão frontal precionado
+    ERROR // Modo de erro
 };
 
 enum status_lora {
-    DINABLE=0,              // Modulo desligado
-    CONFIG,                 // Configurando
-    READY,                  // Modo configurado e pronto para uso
-    SEND,                   // Fazendo envio de pacote
-    RECEIVE                 // Recebendo pacote
+    DISABLED = 0, // Modulo desligado
+    CONFIG, // Configurando
+    READY, // Modo configurado e pronto para uso
+    SEND, // Fazendo envio de pacote
+    RECEIVE // Recebendo pacote
 };
 
-enum comunication {
-    KEEPALIVE=0    
+enum status_uart {
+    IDLE = 0,
+    RECEIVING,
+    RECEIVED,
+    SENDIND,
+    SEND_,
+    PROCESS
 };
 //*****************************************************************************
 //**************************************************************** enum app_lora
-typedef enum
-{
-	enLoRaEstado_SYS_RESET,
-	enLoRaEstado_MAC_RESET,
-	enLoRaEstado_MAC_SET_DEVADDR,
-	enLoRaEstado_MAC_SET_NWKSKEY,
-	enLoRaEstado_MAC_SET_APPSKEY,
-	enLoRaEstado_MAC_JOIN_ABP,
-	enLoRaEstado_MAC_SET_DEVEUI,
-	enLoRaEstado_MAC_SET_APPEUI,
-	enLoRaEstado_MAC_SET_APPKEY,
-	enLoRaEstado_MAC_JOIN_OTAA,
-	enLoRaEstado_MAC_SET_ADRON,
-	enLoRaEstado_MAC_SAVE,
-	enLoRaEstado_MAC_TX_UNCNF,
-	enLoRaEstado_MAC_TX_CNF          
+
+typedef enum {
+    enLoRaEstado_SYS_RESET,
+    enLoRaEstado_MAC_RESET,
+    enLoRaEstado_MAC_SET_DEVADDR,
+    enLoRaEstado_MAC_SET_NWKSKEY,
+    enLoRaEstado_MAC_SET_APPSKEY,
+    enLoRaEstado_MAC_JOIN_ABP,
+    enLoRaEstado_MAC_SET_DEVEUI,
+    enLoRaEstado_MAC_SET_APPEUI,
+    enLoRaEstado_MAC_SET_APPKEY,
+    enLoRaEstado_MAC_JOIN_OTAA,
+    enLoRaEstado_MAC_SET_ADRON,
+    enLoRaEstado_MAC_SAVE,
+    enLoRaEstado_MAC_TX_UNCNF,
+    enLoRaEstado_MAC_TX_CNF
 } EN_LORA_ESTADO_ATUAL;
 //*****************************************************************************
 #endif

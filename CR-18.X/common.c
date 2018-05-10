@@ -63,6 +63,11 @@ void init_pic(void) {
 }
 
 void init_variables(void) {
+    
+    cr18.status.cr18 = STARTED;
+    cr18.status.lora = DISABLED;
+    cr18.status.uart = IDLE;
+    
     //wTimer1ContadorTempo1s = K_TEMPO_1_s;
     stTemporizacao.bFlag1s = FALSE;
     //byStatusLedIO6 = '1';
@@ -78,7 +83,7 @@ void init_variables(void) {
 void blink_led(void) {
     cr18.led.period++;
 
-    switch (cr18.status) {
+    switch (cr18.status.cr18) {
         case STARTED:
             if (cr18.led.period >= LED_STARTED_PERIOD)
                 cr18.led.period = 0;

@@ -9,7 +9,7 @@ int wRetTrataCmdLoRa;
 unsigned char byTemRespostaIntermediaria;
 unsigned char byBufferUART2Tx[TAM_BUFF_TX_UART2];
 unsigned char byBufferUART2Rx[TAM_BUFF_RX_UART2];
-unsigned char byBufferAux[32];
+//unsigned char byBufferAux[32];
 
 unsigned char byEnviaBuffer;
 
