@@ -1,5 +1,5 @@
-build/default/production/main.o:  \
-main.c  \
+build/default/production/lora.o:  \
+lora.c  \
 main.h  \
 definitions.h  \
 prototype.h  \

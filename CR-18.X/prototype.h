@@ -8,18 +8,25 @@
 #ifndef PROTOTYPE_H
 #define	PROTOTYPE_H
 
+/* counters */
+void counters_reset(timeout_t * time, uint8_t enable);
+void counters_proccess(timeout_t * sData, uint8_t ReStart);
+void counters_interrupt();
+void counters_init();
+
 /* common */
 void init_pic(void);
 void init_variables(void);
 void blink_led(void);
+void cr18_proccess();
 
-/* app_lora */
-void LORA_TrataComandosLoRa(void);
-void LORA_VerificaRespostaLoRa(unsigned int wEstadoCasoSucesso, unsigned int wEstadoCasoErro, unsigned int wTentativas);
-void LORA_MaquinaDeControleLoRa(void);
+/* lora */
+void lora_proccess();
 
 /* uart */
-void UART_UART2EnviaTxBufferASCII(unsigned char *byBufferTxASCII);
+void uart_init();
+void uart_receive(uint8_t data);
+void uart_send(unsigned char *byBufferTxASCII);
 
 #endif	
 

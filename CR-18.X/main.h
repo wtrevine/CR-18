@@ -14,8 +14,8 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "prototype.h"
 #include "definitions.h"
+#include "prototype.h"
 #include "variables.h"
 
 

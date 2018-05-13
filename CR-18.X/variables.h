@@ -12,10 +12,9 @@
 extern cr18_t cr18;
 //*****************************************************************************
 
-//******************************************************************** app_lora
+//************************************************************************ lora
 extern ST_UART stUART2;
 extern ST_TEMPORIZACAO stTemporizacao;
-extern EN_LORA_ESTADO_ATUAL enLoRaEstadoAtual;
 extern ST_LORA stLoRa;
 extern unsigned char byTemDadosParaEnviar;
 extern int wRetTrataCmdLoRa;

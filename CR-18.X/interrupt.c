@@ -2,15 +2,12 @@
 
 void __attribute__((interrupt, auto_psv)) _ISR _T1Interrupt(void) {
     IFS0bits.T1IF = FALSE;
+    blink_led();
 }
 
 void __attribute__((interrupt, auto_psv)) _ISR _U1RXInterrupt(void) {
     IFS0bits.U1RXIF = FALSE;
-    //unsigned char byDadoRec1;
-
-    //byDadoRec1 = U1RXREG;			        // Leitura
-    //UART_UART1ProcessaByteRecebido(byDadoRec1);
-
+    uart_receive(U1RXREG);
 }
 
 void __attribute__((interrupt, auto_psv)) _ISR _CNInterrupt(void) {

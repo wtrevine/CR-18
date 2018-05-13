@@ -11,7 +11,7 @@
 #define TRUE    1
 #define FALSE   0
 
-#define ENABLE          PORTAbits.RA3
+#define LORA            PORTAbits.RA3
 #define RED             PORTBbits.RB9
 #define GREEN           PORTBbits.RB8
 #define BUTTON_FRONT    PORTBbits.RB4
@@ -36,8 +36,13 @@
 #define TIME_ALERT              15000
 #define TIME_ERROR              5000
 
+#define TIMEOUT_UART_RECEIVE    10
 
-//******************************************************************** app_lora
+#define SIZE_BUFFER 60
+
+#define ERROR_NUMBER 3
+
+//************************************************************************ lora
 #define LORA_Aguardando_CR_Inicial              0x00
 #define LORA_Aguardando_LF_Inicial              0x01
 #define LORA_Aguardando_CR_Intermediario        0x02
@@ -75,21 +80,26 @@ typedef struct {
 
 typedef struct {
     uint8_t status;
+    uint8_t index;
+    uint8_t buffer_rx[SIZE_BUFFER];
+    uint8_t buffer_tx[SIZE_BUFFER];
+
+} uart_t;
+
+typedef struct {
+    uint8_t status;
+    uint8_t command;
+    uint8_t double_return;
+    uint8_t error_counter;
 } lora_t;
 
 typedef struct {
-    uint8_t cr18;
-    uint8_t lora;
-    uint8_t uart;
-} status_t;
-
-typedef struct {
-    status_t status;
+    uint8_t status;
     led_t led;
     lora_t lora;
+    uart_t uart;
     uint8_t bt_front_previous;
     uint8_t bt_back_previous;
-
 } cr18_t;
 //*****************************************************************************
 
@@ -103,7 +113,7 @@ typedef struct {
 } timeout_t;
 //*****************************************************************************
 
-//************************************************************** struct app_lora
+//***************************************************************** struct lora
 
 typedef struct {
     unsigned char byEstadoTrataComandos; //-- Fazer virar um FLAG
@@ -169,36 +179,33 @@ enum status_lora {
     DISABLED = 0, // Modulo desligado
     CONFIG, // Configurando
     READY, // Modo configurado e pronto para uso
-    SEND, // Fazendo envio de pacote
-    RECEIVE // Recebendo pacote
+    SENDING, // Fazendo envio de pacote
 };
 
 enum status_uart {
     IDLE = 0,
-    RECEIVING,
-    RECEIVED,
-    SENDIND,
-    SEND_,
+    RECEIVE,
+    SEND,
     PROCESS
 };
 //*****************************************************************************
-//**************************************************************** enum app_lora
+//******************************************************************* enum lora
 
 typedef enum {
-    enLoRaEstado_SYS_RESET,
-    enLoRaEstado_MAC_RESET,
-    enLoRaEstado_MAC_SET_DEVADDR,
-    enLoRaEstado_MAC_SET_NWKSKEY,
-    enLoRaEstado_MAC_SET_APPSKEY,
-    enLoRaEstado_MAC_JOIN_ABP,
-    enLoRaEstado_MAC_SET_DEVEUI,
-    enLoRaEstado_MAC_SET_APPEUI,
-    enLoRaEstado_MAC_SET_APPKEY,
-    enLoRaEstado_MAC_JOIN_OTAA,
-    enLoRaEstado_MAC_SET_ADRON,
-    enLoRaEstado_MAC_SAVE,
-    enLoRaEstado_MAC_TX_UNCNF,
-    enLoRaEstado_MAC_TX_CNF
-} EN_LORA_ESTADO_ATUAL;
+    SYS_RESET,
+    MAC_RESET,
+    MAC_SET_DEVADDR,
+    MAC_SET_NWKSKEY,
+    MAC_SET_APPSKEY,
+    MAC_JOIN_ABP,
+    MAC_SET_DEVEUI,
+    MAC_SET_APPEUI,
+    MAC_SET_APPKEY,
+    MAC_JOIN_OTAA,
+    MAC_SET_ADRON,
+    MAC_SAVE,
+    MAC_TX_UNCNF,
+    MAC_TX_CNF
+} lora_state;
 //*****************************************************************************
 #endif

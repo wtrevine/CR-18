@@ -59,14 +59,17 @@ void init_pic(void) {
     IFS4bits.HLVDIF = 0;
     IEC4bits.HLVDIE = 1;
 
+    LORA = TRUE;
+    RED = FALSE;
+    GREEN = FALSE;
 
 }
 
 void init_variables(void) {
-    
-    cr18.status.cr18 = STARTED;
-    cr18.status.lora = DISABLED;
-    cr18.status.uart = IDLE;
+
+    cr18.status = STARTED;
+    cr18.lora.status = DISABLED;
+    cr18.uart.status = IDLE;
     
     //wTimer1ContadorTempo1s = K_TEMPO_1_s;
     stTemporizacao.bFlag1s = FALSE;
@@ -74,7 +77,7 @@ void init_variables(void) {
 
     stUART2.byBufferOk = FALSE;
     stLoRa.byEstadoTrataComandos = AGUARDANDO_ENVIO_DE_COMANDO;
-    enLoRaEstadoAtual = enLoRaEstado_SYS_RESET;
+    cr18.lora.command = SYS_RESET;
     stTemporizacao.wT_TimeoutMaqLoRa = 9999;
     byTemDadosParaEnviar = FALSE;
     stTemporizacao.wT_Tx = 10; //-- Primeira vez = 30 segundos
@@ -83,7 +86,7 @@ void init_variables(void) {
 void blink_led(void) {
     cr18.led.period++;
 
-    switch (cr18.status.cr18) {
+    switch (cr18.status) {
         case STARTED:
             if (cr18.led.period >= LED_STARTED_PERIOD)
                 cr18.led.period = 0;
@@ -150,5 +153,31 @@ void blink_led(void) {
             cr18.led.period = 0;
             RED = 0;
             GREEN = 0;
+    }
+}
+
+void cr18_proccess() {
+    switch (cr18.status) {
+        case STARTED:
+            cr18.lora.status = CONFIG;
+            break;
+
+        case START:
+            break;
+
+        case VIOLATION:
+            break;
+
+        case ACTIVE:
+            break;
+
+        case ALERT:
+            break;
+
+        case ERROR:
+            break;
+        
+        default:
+            break;
     }
 }

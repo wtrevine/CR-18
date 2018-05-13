@@ -39,16 +39,19 @@
 
 // FICD
 #pragma config ICS = PGx2 
+
+/* Variaveis globais */
 cr18_t cr18;
 
-int main (void)
-{
+int main(void) {
     init_pic();
     init_variables();
-    
-    while(1) {
-        
-    blink_led();
+    counters_init();
+
+    while (1) {
+        ClrWdt();
+        cr18_proccess();
+        lora_proccess();
     }
     return 0;
 }
