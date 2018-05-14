@@ -57,6 +57,8 @@ c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.
                               (__crt_start_mode_normal)
 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(memcpy.XX_eo)
                               build/default/production/lora.o (_memcpy)
+c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(memset.XX_eo)
+                              build/default/production/lora.o (_memset)
 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(strcmp.XX_eo)
                               build/default/production/lora.o (_strcmp)
 
@@ -84,13 +86,12 @@ Program Memory  [Origin = 0x200, Length = 0x1400]
 
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
-.text                        0x200               0x1a4           0x276  (630)
-.const                       0x3a4               0x100           0x180  (384)
-.text                        0x4a4               0x5a6           0x879  (2169)
-.dinit                       0xa4a                0x14            0x1e  (30)
-.text                        0xa5e                0x10            0x18  (24)
+.text                        0x200               0x1f2           0x2eb  (747)
+.const                       0x3f2               0x128           0x1bc  (444)
+.text                        0x51a               0x6b8           0xa14  (2580)
+.dinit                       0xbd2                0x14            0x1e  (30)
 
-                 Total program memory used (bytes):          0xca5  (3237) 42%
+                 Total program memory used (bytes):          0xed9  (3801) 49%
 
 
 Ivt Memory  [Origin = 0x4, Length = 0xfc]
@@ -107,9 +108,9 @@ Data Memory  [Origin = 0x800, Length = 0x200]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.nbss                        0x800                   0           0x12c  (300)
+.nbss                        0x800                   0           0x14c  (332)
 
-                 Total data memory used (bytes):          0x12c  (300) 58%
+                 Total data memory used (bytes):          0x14c  (332) 64%
 
 
 Dynamic Memory Usage
@@ -117,9 +118,9 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                        0x92c                                0xd4  (212)
+stack                        0x94c                                0xb4  (180)
 
-                 Maximum dynamic memory (bytes):           0xd4  (212)
+                 Maximum dynamic memory (bytes):           0xb4  (180)
 
 
 External Symbols in Data Memory (by address):
@@ -134,7 +135,10 @@ External Symbols in Data Memory (by address):
                     0x085f                  _byBufferUART2Rx
                     0x089f                  _byEnviaBuffer
                     0x08a0                  _cr18
-                    0x0924                  _timeout_uart_receive
+                    0x092c                  _timeout_uart_receive
+                    0x0934                  _timeout_alert
+                    0x093c                  _timeout_violation
+                    0x0944                  _timeout_keepalive
 
 External Symbols in Data Memory (by name):
 
@@ -147,7 +151,10 @@ External Symbols in Data Memory (by name):
                     0x0814                  _stLoRa
                     0x0808                  _stTemporizacao
                     0x0800                  _stUART2
-                    0x0924                  _timeout_uart_receive
+                    0x0934                  _timeout_alert
+                    0x0944                  _timeout_keepalive
+                    0x092c                  _timeout_uart_receive
+                    0x093c                  _timeout_violation
                     0x081c                  _wRetTrataCmdLoRa
 
 External Symbols in Program Memory (by address):
@@ -159,54 +166,62 @@ External Symbols in Program Memory (by address):
                   0x0002c8                  __T1Interrupt
                   0x0002ee                  __U1RXInterrupt
                   0x000318                  __CNInterrupt
-                  0x00035c                  __HLVDInterrupt
-                  0x000370                  __DefaultInterrupt
-                  0x000376                  _memcpy
-                  0x000384                  _strcmp
-                  0x000796                  _lora_proccess
-                  0x0007aa                  _init_pic
-                  0x000822                  _init_variables
-                  0x000844                  _blink_led
-                  0x000924                  _cr18_proccess
-                  0x00094a                  _uart_init
-                  0x000950                  _uart_receive
-                  0x00099c                  _uart_send
-                  0x0009d4                  _counters_reset
-                  0x0009f0                  _counters_proccess
-                  0x000a32                  _counters_interrupt
-                  0x000a3e                  _counters_init
-                  0x000a5e                  _main
+                  0x000398                  __HLVDInterrupt
+                  0x0003b0                  __DefaultInterrupt
+                  0x0003b6                  _memcpy
+                  0x0003c4                  _memset
+                  0x0003d2                  _strcmp
+                  0x00061e                  _lora_compare_command
+                  0x000790                  _lora_proccess
+                  0x000804                  _init_pic
+                  0x00087c                  _init_variables
+                  0x0008a2                  _blink_led
+                  0x000982                  _cr18_proccess
+                  0x0009a8                  _uart_init
+                  0x0009ae                  _uart_error
+                  0x000a08                  _uart_receive
+                  0x000a56                  _uart_send
+                  0x000a90                  _uart_proccess
+                  0x000ad4                  _counters_reset
+                  0x000af0                  _counters_proccess
+                  0x000b32                  _counters_interrupt
+                  0x000b4a                  _counters_init
+                  0x000b68                  _main
                   0xf80000                  __FBS.sec
                   0xf80004                  __FGS.sec
 
 External Symbols in Program Memory (by name):
 
                   0x000318                  __CNInterrupt
-                  0x000370                  __DefaultInterrupt
+                  0x0003b0                  __DefaultInterrupt
                   0xf80000                  __FBS.sec
                   0xf80004                  __FGS.sec
-                  0x00035c                  __HLVDInterrupt
+                  0x000398                  __HLVDInterrupt
                   0x0002c8                  __T1Interrupt
                   0x0002ee                  __U1RXInterrupt
                   0x000252                  __data_init
                   0x000252                  __data_init_standard
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
-                  0x000844                  _blink_led
-                  0x000a3e                  _counters_init
-                  0x000a32                  _counters_interrupt
-                  0x0009f0                  _counters_proccess
-                  0x0009d4                  _counters_reset
-                  0x000924                  _cr18_proccess
-                  0x0007aa                  _init_pic
-                  0x000822                  _init_variables
-                  0x000796                  _lora_proccess
-                  0x000a5e                  _main
-                  0x000376                  _memcpy
-                  0x000384                  _strcmp
-                  0x00094a                  _uart_init
-                  0x000950                  _uart_receive
-                  0x00099c                  _uart_send
+                  0x0008a2                  _blink_led
+                  0x000b4a                  _counters_init
+                  0x000b32                  _counters_interrupt
+                  0x000af0                  _counters_proccess
+                  0x000ad4                  _counters_reset
+                  0x000982                  _cr18_proccess
+                  0x000804                  _init_pic
+                  0x00087c                  _init_variables
+                  0x00061e                  _lora_compare_command
+                  0x000790                  _lora_proccess
+                  0x000b68                  _main
+                  0x0003b6                  _memcpy
+                  0x0003c4                  _memset
+                  0x0003d2                  _strcmp
+                  0x0009ae                  _uart_error
+                  0x0009a8                  _uart_init
+                  0x000a90                  _uart_proccess
+                  0x000a08                  _uart_receive
+                  0x000a56                  _uart_send
 
 Memory Configuration
 
@@ -258,7 +273,7 @@ LOAD c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libfx-elf.a
                   0x000002          0x2 SHORT 0x0 ((ABSOLUTE (__reset) >> 0x10) & 0x7f)
                   0x000003          0x2 SHORT 0x0
 
-.text             0x000200        0x1a4
+.text             0x000200        0x1f2
  *(.init)
  .init            0x000200         0x4c c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o)
                   0x000200                  __resetPRI
@@ -270,25 +285,27 @@ LOAD c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libfx-elf.a
  *(.user_init)
  *(.handle)
  *(.isr*)
- .isr.text        0x0002c8         0xa8 build/default/production/interrupt.o
+ .isr.text        0x0002c8         0xe8 build/default/production/interrupt.o
                   0x0002c8                  __T1Interrupt
                   0x0002ee                  __U1RXInterrupt
                   0x000318                  __CNInterrupt
-                  0x00035c                  __HLVDInterrupt
- .isr             0x000370          0x4 default_isr
-                  0x000370                  __DefaultInterrupt
+                  0x000398                  __HLVDInterrupt
+ .isr             0x0003b0          0x4 default_isr
+                  0x0003b0                  __DefaultInterrupt
  *(.libc)
  *(.libm)
  *(.libdsp)
  *(.lib*)
  .libpic30_crt_start_mode
-                  0x000374          0x2 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(crt_start_mode_normal.Leo)
-                  0x000374                  __crt_start_mode
-                  0x000374                  __crt_start_mode_normal
- .libc.memcpy     0x000376          0xe c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(memcpy.XX_eo)
-                  0x000376                  _memcpy
- .libc.strcmp     0x000384         0x20 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(strcmp.XX_eo)
-                  0x000384                  _strcmp
+                  0x0003b4          0x2 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(crt_start_mode_normal.Leo)
+                  0x0003b4                  __crt_start_mode
+                  0x0003b4                  __crt_start_mode_normal
+ .libc.memcpy     0x0003b6          0xe c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(memcpy.XX_eo)
+                  0x0003b6                  _memcpy
+ .libc.memset     0x0003c4          0xe c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(memset.XX_eo)
+                  0x0003c4                  _memset
+ .libc.strcmp     0x0003d2         0x20 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(strcmp.XX_eo)
+                  0x0003d2                  _strcmp
 
 usercode
  *(usercode)
@@ -321,51 +338,51 @@ __FICD
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x359f
+.debug_info       0x000000       0x3f6f
  *(.debug_info)
- .debug_info      0x000000        0x309 build/default/production/main.o
- .debug_info      0x000309       0x1a79 build/default/production/common.o
- .debug_info      0x001d82        0x4d8 build/default/production/uart.o
- .debug_info      0x00225a        0x744 build/default/production/interrupt.o
- .debug_info      0x00299e        0x2c5 build/default/production/counters.o
- .debug_info      0x002c63        0x93c build/default/production/lora.o
+ .debug_info      0x000000        0x5ad build/default/production/main.o
+ .debug_info      0x0005ad       0x1b2e build/default/production/common.o
+ .debug_info      0x0020db        0x864 build/default/production/uart.o
+ .debug_info      0x00293f        0x8a7 build/default/production/interrupt.o
+ .debug_info      0x0031e6        0x322 build/default/production/counters.o
+ .debug_info      0x003508        0xa67 build/default/production/lora.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x66c
+.debug_abbrev     0x000000        0x750
  *(.debug_abbrev)
- .debug_abbrev    0x000000         0x91 build/default/production/main.o
- .debug_abbrev    0x000091        0x180 build/default/production/common.o
- .debug_abbrev    0x000211        0x151 build/default/production/uart.o
- .debug_abbrev    0x000362        0x10d build/default/production/interrupt.o
- .debug_abbrev    0x00046f         0xac build/default/production/counters.o
- .debug_abbrev    0x00051b        0x151 build/default/production/lora.o
+ .debug_abbrev    0x000000         0xff build/default/production/main.o
+ .debug_abbrev    0x0000ff        0x180 build/default/production/common.o
+ .debug_abbrev    0x00027f        0x1b0 build/default/production/uart.o
+ .debug_abbrev    0x00042f        0x11e build/default/production/interrupt.o
+ .debug_abbrev    0x00054d         0xac build/default/production/counters.o
+ .debug_abbrev    0x0005f9        0x157 build/default/production/lora.o
 
-.debug_line       0x000000        0x64e
+.debug_line       0x000000        0x6da
  *(.debug_line)
- .debug_line      0x000000         0xa0 build/default/production/main.o
- .debug_line      0x0000a0        0x17f build/default/production/common.o
- .debug_line      0x00021f        0x116 build/default/production/uart.o
- .debug_line      0x000335        0x11b build/default/production/interrupt.o
- .debug_line      0x000450         0xb0 build/default/production/counters.o
- .debug_line      0x000500        0x14e build/default/production/lora.o
+ .debug_line      0x000000         0xc4 build/default/production/main.o
+ .debug_line      0x0000c4        0x180 build/default/production/common.o
+ .debug_line      0x000244        0x14b build/default/production/uart.o
+ .debug_line      0x00038f        0x123 build/default/production/interrupt.o
+ .debug_line      0x0004b2         0xc5 build/default/production/counters.o
+ .debug_line      0x000577        0x163 build/default/production/lora.o
 
-.debug_frame      0x000000        0x35a
+.debug_frame      0x000000        0x366
  *(.debug_frame)
  .debug_frame     0x000000         0x30 build/default/production/main.o
  .debug_frame     0x000030         0x84 build/default/production/common.o
- .debug_frame     0x0000b4         0x68 build/default/production/uart.o
- .debug_frame     0x00011c         0xe2 build/default/production/interrupt.o
- .debug_frame     0x0001fe         0x84 build/default/production/counters.o
- .debug_frame     0x000282         0xd8 build/default/production/lora.o
+ .debug_frame     0x0000b4         0xa0 build/default/production/uart.o
+ .debug_frame     0x000154        0x10a build/default/production/interrupt.o
+ .debug_frame     0x00025e         0x84 build/default/production/counters.o
+ .debug_frame     0x0002e2         0x84 build/default/production/lora.o
 
-.debug_str        0x000000        0x1de
+.debug_str        0x000000        0x20f
  *(.debug_str)
- .debug_str       0x000000          0x7 build/default/production/main.o
- .debug_str       0x000007         0xd2 build/default/production/common.o
- .debug_str       0x0000d9         0x35 build/default/production/uart.o
- .debug_str       0x00010e         0x36 build/default/production/interrupt.o
- .debug_str       0x000144         0x15 build/default/production/counters.o
- .debug_str       0x000159         0x85 build/default/production/lora.o
+ .debug_str       0x000000         0x4e build/default/production/main.o
+ .debug_str       0x00004e         0xd2 build/default/production/common.o
+ .debug_str       0x000120         0x26 build/default/production/uart.o
+ .debug_str       0x000146         0x56 build/default/production/interrupt.o
+ .debug_str       0x00019c         0x47 build/default/production/counters.o
+ .debug_str       0x0001e3         0x2c build/default/production/lora.o
 
 .debug_loc
  *(.debug_loc)
@@ -374,20 +391,20 @@ __FICD
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0x261
+                  0x000000        0x2d9
  *(.debug_pubnames)
  .debug_pubnames
                   0x000000         0x24 build/default/production/main.o
  .debug_pubnames
                   0x000024         0x52 build/default/production/common.o
  .debug_pubnames
-                  0x000076         0x3f build/default/production/uart.o
+                  0x000076         0x60 build/default/production/uart.o
  .debug_pubnames
-                  0x0000b5         0x5a build/default/production/interrupt.o
+                  0x0000d6         0x5a build/default/production/interrupt.o
  .debug_pubnames
-                  0x00010f         0x7d build/default/production/counters.o
+                  0x000130         0xbb build/default/production/counters.o
  .debug_pubnames
-                  0x00018c         0xd5 build/default/production/lora.o
+                  0x0001eb         0xee build/default/production/lora.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -775,44 +792,46 @@ LOAD default_isr
 LOAD data_init
 
 .debug_pubtypes
-                  0x000090        0x51d
+                  0x000090        0x60e
  .debug_pubtypes
-                  0x000090         0x56 build/default/production/main.o
+                  0x000090         0x9f build/default/production/main.o
  .debug_pubtypes
-                  0x0000e6        0x2bb build/default/production/common.o
+                  0x00012f        0x2c7 build/default/production/common.o
  .debug_pubtypes
-                  0x0003a1         0x56 build/default/production/uart.o
+                  0x0003f6         0xae build/default/production/uart.o
  .debug_pubtypes
-                  0x0003f7         0xeb build/default/production/interrupt.o
+                  0x0004a4        0x105 build/default/production/interrupt.o
  .debug_pubtypes
-                  0x0004e2         0x39 build/default/production/counters.o
+                  0x0005a9         0x39 build/default/production/counters.o
  .debug_pubtypes
-                  0x00051b         0x92 build/default/production/lora.o
+                  0x0005e2         0xbc build/default/production/lora.o
 
 __c30_signature
-                  0x0005ad         0x3c
+                  0x00069e         0x42
  __c30_signature
-                  0x0005ad          0x6 build/default/production/main.o
+                  0x00069e          0x6 build/default/production/main.o
  __c30_signature
-                  0x0005b3          0x6 build/default/production/common.o
+                  0x0006a4          0x6 build/default/production/common.o
  __c30_signature
-                  0x0005b9          0x6 build/default/production/uart.o
+                  0x0006aa          0x6 build/default/production/uart.o
  __c30_signature
-                  0x0005bf          0x6 build/default/production/interrupt.o
+                  0x0006b0          0x6 build/default/production/interrupt.o
  __c30_signature
-                  0x0005c5          0x6 build/default/production/counters.o
+                  0x0006b6          0x6 build/default/production/counters.o
  __c30_signature
-                  0x0005cb          0x6 build/default/production/lora.o
+                  0x0006bc          0x6 build/default/production/lora.o
  __c30_signature
-                  0x0005d1          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o)
+                  0x0006c2          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o)
  __c30_signature
-                  0x0005d7          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(data_init_standard.o)
+                  0x0006c8          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(data_init_standard.o)
  __c30_signature
-                  0x0005dd          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(memcpy.XX_eo)
+                  0x0006ce          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(memcpy.XX_eo)
  __c30_signature
-                  0x0005e3          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(strcmp.XX_eo)
+                  0x0006d4          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(memset.XX_eo)
+ __c30_signature
+                  0x0006da          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(strcmp.XX_eo)
 
-.nbss               0x0800        0x12c
+.nbss               0x0800        0x14c
  .nbss              0x0800         0xa0 build/default/production/lora.o
                     0x0800                  _stUART2
                     0x0808                  _stTemporizacao
@@ -823,10 +842,13 @@ __c30_signature
                     0x081f                  _byBufferUART2Tx
                     0x085f                  _byBufferUART2Rx
                     0x089f                  _byEnviaBuffer
- .nbss              0x08a0         0x84 build/default/production/main.o
+ .nbss              0x08a0         0x8c build/default/production/main.o
                     0x08a0                  _cr18
- .nbss              0x0924          0x8 build/default/production/counters.o
-                    0x0924                  _timeout_uart_receive
+ .nbss              0x092c         0x20 build/default/production/counters.o
+                    0x092c                  _timeout_uart_receive
+                    0x0934                  _timeout_alert
+                    0x093c                  _timeout_violation
+                    0x0944                  _timeout_keepalive
 
 .config_ICS       0xf8000e          0x2
  .config_ICS      0xf8000e          0x2 build/default/production/main.o
@@ -864,30 +886,31 @@ __c30_signature
  .ivt._HLVDInterrupt
                   0x0000a4          0x2 build/default/production/interrupt.o
 
-.const              0x83a4        0x100 load address 0x0003a4  
- .const             0x83a4        0x100 build/default/production/lora.o
+.const              0x83f2        0x128 load address 0x0003f2  
+ .const             0x83f2        0x128 build/default/production/lora.o
 
-.text             0x0004a4        0x5a6
- .text            0x0004a4        0x306 build/default/production/lora.o
-                  0x000796                  _lora_proccess
- .text            0x0007aa        0x1a0 build/default/production/common.o
-                  0x0007aa                  _init_pic
-                  0x000822                  _init_variables
-                  0x000844                  _blink_led
-                  0x000924                  _cr18_proccess
- .text            0x00094a         0x8a build/default/production/uart.o
-                  0x00094a                  _uart_init
-                  0x000950                  _uart_receive
-                  0x00099c                  _uart_send
- .text            0x0009d4         0x76 build/default/production/counters.o
-                  0x0009d4                  _counters_reset
-                  0x0009f0                  _counters_proccess
-                  0x000a32                  _counters_interrupt
-                  0x000a3e                  _counters_init
+.text             0x00051a        0x6b8
+ .text            0x00051a        0x2ea build/default/production/lora.o
+                  0x00061e                  _lora_compare_command
+                  0x000790                  _lora_proccess
+ .text            0x000804        0x1a4 build/default/production/common.o
+                  0x000804                  _init_pic
+                  0x00087c                  _init_variables
+                  0x0008a2                  _blink_led
+                  0x000982                  _cr18_proccess
+ .text            0x0009a8        0x12c build/default/production/uart.o
+                  0x0009a8                  _uart_init
+                  0x0009ae                  _uart_error
+                  0x000a08                  _uart_receive
+                  0x000a56                  _uart_send
+                  0x000a90                  _uart_proccess
+ .text            0x000ad4         0x94 build/default/production/counters.o
+                  0x000ad4                  _counters_reset
+                  0x000af0                  _counters_proccess
+                  0x000b32                  _counters_interrupt
+                  0x000b4a                  _counters_init
+ .text            0x000b68         0x6a build/default/production/main.o
+                  0x000b68                  _main
 
-.dinit            0x000a4a         0x14
- .dinit           0x000a4a         0x14 data_init
-
-.text             0x000a5e         0x10
- .text            0x000a5e         0x10 build/default/production/main.o
-                  0x000a5e                  _main
+.dinit            0x000bd2         0x14
+ .dinit           0x000bd2         0x14 data_init

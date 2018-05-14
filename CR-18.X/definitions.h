@@ -37,6 +37,10 @@
 #define TIME_ERROR              5000
 
 #define TIMEOUT_UART_RECEIVE    10
+#define TIMEOUT_ALERT           1
+#define TIMEOUT_VIOLATION       5
+#define TIMEOUT_KEEPALIVE       14400 // 24 horas (processado a casa 6 seguntos)
+#define TIMEOUT_INSTALATION     20 //6s
 
 #define SIZE_BUFFER 60
 
@@ -87,10 +91,21 @@ typedef struct {
 } uart_t;
 
 typedef struct {
+    uint8_t keepalive;
+    uint8_t alert;
+    uint8_t violation;
+    uint8_t low_battrey;
+}event_t;
+
+typedef struct {
     uint8_t status;
     uint8_t command;
     uint8_t double_return;
-    uint8_t error_counter;
+    uint8_t error_timeout;
+    uint8_t error_buffer;
+    uint8_t error_aswer;
+    uint8_t config;
+    event_t event;
 } lora_t;
 
 typedef struct {
@@ -183,15 +198,23 @@ enum status_lora {
 };
 
 enum status_uart {
-    IDLE = 0,
+    IDLE=0,
     RECEIVE,
     SEND,
-    PROCESS
+    PROCCESS
 };
+
+enum error_lora {
+    TIMEOUT=0,
+    BUFFER,
+    ASWER
+};
+
 //*****************************************************************************
 //******************************************************************* enum lora
 
 typedef enum {
+    COMMAND_NULL=0,
     SYS_RESET,
     MAC_RESET,
     MAC_SET_DEVADDR,
@@ -204,7 +227,6 @@ typedef enum {
     MAC_JOIN_OTAA,
     MAC_SET_ADRON,
     MAC_SAVE,
-    MAC_TX_UNCNF,
     MAC_TX_CNF
 } lora_state;
 //*****************************************************************************

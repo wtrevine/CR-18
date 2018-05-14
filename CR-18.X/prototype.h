@@ -26,7 +26,7 @@ void lora_proccess();
 /* uart */
 void uart_init();
 void uart_receive(uint8_t data);
-void uart_send(unsigned char *byBufferTxASCII);
+void uart_send();
 
 #endif	
 

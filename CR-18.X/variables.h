@@ -30,6 +30,12 @@ extern unsigned char byEnviaBuffer;
 
 //*****************************************************************************
 
-
+//******************************************************************** counters
+extern timeout_t timeout_uart_receive;
+extern timeout_t timeout_alert;
+extern timeout_t timeout_violation;
+extern timeout_t timeout_keepalive;
+extern timeout_t timeout_instalation;
+//*****************************************************************************
 #endif
 

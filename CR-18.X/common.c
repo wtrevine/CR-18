@@ -69,6 +69,7 @@ void init_variables(void) {
 
     cr18.status = STARTED;
     cr18.lora.status = DISABLED;
+    cr18.lora.config = FALSE;
     cr18.uart.status = IDLE;
     
     //wTimer1ContadorTempo1s = K_TEMPO_1_s;
