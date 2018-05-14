@@ -11,39 +11,44 @@
 #define TRUE    1
 #define FALSE   0
 
+/* Ports */
 #define LORA            PORTAbits.RA3
 #define RED             PORTBbits.RB9
 #define GREEN           PORTBbits.RB8
 #define BUTTON_FRONT    PORTBbits.RB4
 #define BUTTON_BACK     PORTAbits.RA4
 
+/* Time leds */
 #define LED_START_PERIOD        1000
-#define LED_STARTED_PERIOD      500
-#define LED_VIOLATION_PERIOD    1000
-#define LED_ACTIVE_PERIOD       60000
-#define LED_ALERT_PERIOD        1000
-#define LED_ERROR_PERIOD        500
-
 #define LED_START               500
+#define LED_STARTED_PERIOD      500
 #define LED_STARTED             250
+#define LED_VIOLATION_PERIOD    1000
 #define LED_VIOLATION           100
+#define LED_ACTIVE_PERIOD       60000
 #define LED_ACTIVE              100
+#define LED_ALERT_PERIOD        1000
 #define LED_ALERT               500
+#define LED_ERROR_PERIOD        500
 #define LED_ERROR               100
 
-#define TIME_START              3000
-#define TIME_VIOLATION          15000
-#define TIME_ALERT              15000
-#define TIME_ERROR              5000
+//#define TIME_START              3000
+//#define TIME_VIOLATION          15000
+//#define TIME_ALERT              15000
+//#define TIME_ERROR              5000
 
-#define TIMEOUT_UART_RECEIVE    10
+/* Timeout 1m */
+#define TIMEOUT_UART_RECEIVE    2000
+
+/* Timeout 6s */
 #define TIMEOUT_ALERT           1
 #define TIMEOUT_VIOLATION       5
-#define TIMEOUT_KEEPALIVE       14400 // 24 horas (processado a casa 6 seguntos)
-#define TIMEOUT_INSTALATION     20 //6s
+#define TIMEOUT_KEEPALIVE       14400 // 24 horas
+#define TIMEOUT_INSTALATION     20 
 
 #define SIZE_BUFFER 60
 
+/* Erros de serial para reinicializar */
 #define ERROR_NUMBER 3
 
 //************************************************************************ lora

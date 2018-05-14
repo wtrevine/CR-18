@@ -68,20 +68,12 @@ void init_pic(void) {
 void init_variables(void) {
 
     cr18.status = STARTED;
+
     cr18.lora.status = DISABLED;
     cr18.lora.config = FALSE;
-    cr18.uart.status = IDLE;
-    
-    //wTimer1ContadorTempo1s = K_TEMPO_1_s;
-    stTemporizacao.bFlag1s = FALSE;
-    //byStatusLedIO6 = '1';
+    cr18.lora.command = COMMAND_NULL;
 
-    stUART2.byBufferOk = FALSE;
-    stLoRa.byEstadoTrataComandos = AGUARDANDO_ENVIO_DE_COMANDO;
-    cr18.lora.command = SYS_RESET;
-    stTemporizacao.wT_TimeoutMaqLoRa = 9999;
-    byTemDadosParaEnviar = FALSE;
-    stTemporizacao.wT_Tx = 10; //-- Primeira vez = 30 segundos
+    cr18.uart.status = IDLE;
 }
 
 void blink_led(void) {
@@ -177,7 +169,7 @@ void cr18_proccess() {
 
         case ERROR:
             break;
-        
+
         default:
             break;
     }

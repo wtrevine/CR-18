@@ -53,30 +53,7 @@ int main(void) {
         cr18_proccess();
         lora_proccess();
         uart_proccess();
-
-        if (timeout_uart_receive.overflow == TRUE) {
-            timeout_uart_receive.overflow = FALSE;
-            cr18.uart.status = SEND;
-            uart_error(TIMEOUT);
-        }
-
-        if (timeout_alert.overflow == TRUE) {
-            timeout_alert.overflow = FALSE;
-            cr18.status = ALERT;
-            cr18.lora.event.alert = TRUE;
-        }
-
-        if (timeout_violation.overflow == TRUE) {
-            timeout_violation.overflow = FALSE;
-            cr18.status = VIOLATION;
-            cr18.lora.event.violation = TRUE;
-        }
-        
-        if (timeout_keepalive.overflow == TRUE) {
-            timeout_keepalive.overflow = FALSE;
-            cr18.lora.event.keepalive = TRUE;
-        }
-
+        counters_overflow_proccess();
     }
     return 0;
 }

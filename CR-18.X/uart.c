@@ -58,6 +58,7 @@ void uart_receive(uint8_t data) {
                 cr18.lora.double_return = FALSE;
             } else {
                 counters_reset(&timeout_uart_receive, FALSE);
+                cr18.lora.error_timeout = 0;
                 cr18.uart.status = PROCCESS;
             }
         }
@@ -67,6 +68,8 @@ void uart_receive(uint8_t data) {
             cr18.uart.status = IDLE;
             uart_error(BUFFER);
         }
+        else
+            cr18.lora.error_buffer = 0;
     }
 }
 
@@ -111,6 +114,7 @@ void uart_proccess() {
             }
             else {
                 cr18.uart.status = IDLE;
+                cr18.lora.error_aswer = 0;
             }
             break;
 
