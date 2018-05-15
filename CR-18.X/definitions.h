@@ -8,6 +8,8 @@
 #ifndef DEFINITIONS_H
 #define	DEFINITIONS_H
 
+#define FCY 16000UL
+
 #define TRUE    1
 #define FALSE   0
 

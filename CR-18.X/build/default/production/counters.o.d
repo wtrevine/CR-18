@@ -3,5 +3,4 @@ counters.c  \
 main.h  \
 definitions.h  \
  prototype.h  \
-variables.h  \
-
+variables.h 

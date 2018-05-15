@@ -13,6 +13,7 @@ void counters_reset(timeout_t * time, uint8_t enable);
 void counters_proccess(timeout_t * sData, uint8_t ReStart);
 void counters_interrupt();
 void counters_init();
+void counters_overflow_proccess(void);
 
 /* common */
 void init_pic(void);
@@ -22,11 +23,14 @@ void cr18_proccess();
 
 /* lora */
 void lora_proccess();
+uint8_t lora_compare_command();
 
 /* uart */
 void uart_init();
+void uart_error(uint8_t error);
 void uart_receive(uint8_t data);
 void uart_send();
+void uart_proccess();
 
 #endif	
 

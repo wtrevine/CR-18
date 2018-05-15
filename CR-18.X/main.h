@@ -10,6 +10,7 @@
 
 #include <p24F08KL200.h>
 #include <xc.h>
+#include <libpic30.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>

@@ -51,7 +51,7 @@ void uart_error(uint8_t error) {
 }
 
 void uart_receive(uint8_t data) {
-    if (cr18.uart.status = RECEIVE) {
+    if (cr18.uart.status == RECEIVE) {
         cr18.uart.buffer_rx[cr18.uart.index++] = data;
         if (data == 0x0A) {
             if (cr18.lora.double_return == TRUE) {
