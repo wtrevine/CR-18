@@ -10,6 +10,8 @@
 
 #define FCY 16000UL
 
+#define TIMER1 26785 // 10s = 65535 - (10 / (1/31000 * 8))
+
 #define TRUE    1
 #define FALSE   0
 

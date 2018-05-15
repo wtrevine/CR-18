@@ -2,6 +2,7 @@
 
 void __attribute__((interrupt, auto_psv)) _ISR _T1Interrupt(void) {
     IFS0bits.T1IF = FALSE;
+    TMR1 = TIMER1;
     blink_led();
 }
 

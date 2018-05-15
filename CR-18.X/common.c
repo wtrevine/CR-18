@@ -2,15 +2,10 @@
 
 void init_pic(void) {
     /* Configura oscilador */
-    OSCCONbits.NOSC = 0b101;
-    OSCCONbits.SOSCDRV = 0;
-    OSCCONbits.SOSCEN = 0;
-    OSCCONbits.OSWEN = 0;
+    OSCCONbits.NOSC = 0b111;
 
     /* Configura divisão de oscilador */
     CLKDIVbits.ROI = 0;
-    CLKDIVbits.DOZE = 0;
-    CLKDIVbits.DOZEN = 0;
     CLKDIVbits.RCDIV = 0;
 
     /* Configura portas analogicas */
@@ -20,13 +15,16 @@ void init_pic(void) {
     /* Configura TIMER 1 */
     T1CONbits.TON = 1;
     T1CONbits.T1ECS = 0b10;
-    T1CONbits.TCKPS = 0b00; //Prescale
+    T1CONbits.TCKPS = 0b01; //Prescale = 8
     T1CONbits.TCS = 1;
+    TMR1 = TIMER1;
 
     /* Configura UART*/
-    U1MODEbits.UARTEN = 0;
-    U1MODEbits.USIDL = 1;
+    U1MODEbits.UARTEN = 1;
+    U1MODEbits.RTSMD = 1;
+    U1MODEbits.BRGH = 1; //4
     U1STAbits.UTXEN = 1;
+    U1BRG = 16; 
 
     /* Configura PORTs */
     PORTA = 0;
@@ -45,6 +43,11 @@ void init_pic(void) {
     /* Configura pinos de mudança de estados */
     CNEN1bits.CN0IE = 1;
     CNEN1bits.CN1IE = 1;
+    
+    /* Configura detector de baixa tensão */
+    HLVDCONbits.HLVDEN = 1;
+    HLVDCONbits.IRVST = 1;
+    HLVDCONbits.HLVDL = 0b0110; //2.23V
 
     /* Configura interrupções */
     IFS0bits.T1IF = 0;

@@ -67,8 +67,7 @@ void uart_receive(uint8_t data) {
             counters_reset(&timeout_uart_receive, FALSE);
             cr18.uart.status = IDLE;
             uart_error(BUFFER);
-        }
-        else
+        } else
             cr18.lora.error_buffer = 0;
     }
 }
@@ -111,8 +110,7 @@ void uart_proccess() {
             if (lora_compare_command()) {
                 cr18.uart.status = SEND;
                 uart_error(ASWER);
-            }
-            else {
+            } else {
                 cr18.uart.status = IDLE;
                 cr18.lora.error_aswer = 0;
             }
@@ -121,4 +119,7 @@ void uart_proccess() {
         default:
             break;
     }
+
+    if (U1STAbits.OERR == TRUE)
+        U1STAbits.OERR = FALSE;
 }

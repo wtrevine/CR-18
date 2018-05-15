@@ -20,7 +20,7 @@
 #pragma config POSCMD = NONE
 #pragma config OSCIOFNC = ON
 #pragma config POSCFREQ = HS
-#pragma config SOSCSEL = SOSCHP
+#pragma config SOSCSEL = 0
 #pragma config FCKSM = CSDCMD
 
 // FWDT
