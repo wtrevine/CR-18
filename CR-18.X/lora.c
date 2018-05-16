@@ -58,14 +58,22 @@ static void load_command(uint8_t command) {
 
         case MAC_TX_CNF:
 
-            if (cr18.lora.event.keepalive)
+            if (cr18.lora.event.keepalive) {
                 sprintf((char*) cr18.uart.buffer_tx, "mac tx cnf 1 10");
-            else if (cr18.lora.event.alert)
+                cr18.lora.event.type = EVT_KEEPALIVE;
+            }
+            else if (cr18.lora.event.alert) {
                 sprintf((char*) cr18.uart.buffer_tx, "mac tx cnf 1 20");
-            else if (cr18.lora.event.violation)
+                cr18.lora.event.type = EVT_ALERT;
+            }
+            else if (cr18.lora.event.violation) {
                 sprintf((char*) cr18.uart.buffer_tx, "mac tx cnf 1 30");
-            else if (cr18.lora.event.low_battrey)
+                cr18.lora.event.type = EVT_VIOLATION;
+            }
+            else if (cr18.lora.event.low_battery) {
                 sprintf((char*) cr18.uart.buffer_tx, "mac tx cnf 1 40");
+                cr18.lora.event.type = EVT_LOW_BATTERY;
+            }
 
 
             timeout_uart_receive.count_max = 30000;
@@ -90,45 +98,46 @@ uint8_t lora_compare_command() {
             break;
 
         case MAC_RESET:
-            if (strcmp((char *) byBufferUART2Rx, "ok\r\n") == 0)
+            if (strcmp((char *) cr18.uart.buffer_rx, "ok\r\n") == 0)
                 error = FALSE;
             break;
 
         case MAC_SET_DEVADDR:
-            if (strcmp((char *) byBufferUART2Rx, "ok\r\n") == 0)
+            if (strcmp((char *) cr18.uart.buffer_rx, "ok\r\n") == 0)
                 error = FALSE;
             break;
 
         case MAC_SET_NWKSKEY:
-            if (strcmp((char *) byBufferUART2Rx, "ok\r\n") == 0)
+            if (strcmp((char *) cr18.uart.buffer_rx, "ok\r\n") == 0)
                 error = FALSE;
             break;
 
         case MAC_SET_APPSKEY:
-            if (strcmp((char *) byBufferUART2Rx, "ok\r\n") == 0)
+            if (strcmp((char *) cr18.uart.buffer_rx, "ok\r\n") == 0)
                 error = FALSE;
             break;
 
         case MAC_JOIN_ABP:
-            if (strcmp((char *) byBufferUART2Rx, "ok\r\naccepted\r\n") == 0)
+            if (strcmp((char *) cr18.uart.buffer_rx, "ok\r\naccepted\r\n") == 0)
                 error = FALSE;
             break;
 
         case MAC_SET_ADRON:
-            if (strcmp((char *) byBufferUART2Rx, "ok\r\n") == 0)
+            if (strcmp((char *) cr18.uart.buffer_rx, "ok\r\n") == 0)
                 error = FALSE;
             break;
 
         case MAC_SAVE:
-            if (strcmp((char *) byBufferUART2Rx, "ok\r\n") == 0) {
+            if (strcmp((char *) cr18.uart.buffer_rx, "ok\r\n") == 0) {
                 error = FALSE;
+                cr18.status = START;
                 cr18.lora.status = READY;
                 cr18.lora.config = TRUE;
             }
             break;
 
         case MAC_TX_CNF:
-            if (strcmp((char *) byBufferUART2Rx, "ok\r\nmac_tx_ok\r\n") == 0) {
+            if (strcmp((char *) cr18.uart.buffer_rx, "ok\r\nmac_tx_ok\r\n") == 0) {
                 error = FALSE;
                 cr18.lora.status = READY;
             }
@@ -252,12 +261,13 @@ void lora_proccess() {
         case READY:
             if (cr18.uart.status == IDLE && cr18.lora.config == TRUE)
                 if (cr18.lora.event.alert || cr18.lora.event.keepalive ||
-                        cr18.lora.event.low_battrey || cr18.lora.event.violation)
+                        cr18.lora.event.low_battery || cr18.lora.event.violation)
                     cr18.lora.status = SENDING;
             break;
 
         case SENDING:
-            load_command(MAC_TX_CNF);
+            if (cr18.uart.status == IDLE)
+                load_command(MAC_TX_CNF);
             break;
 
         default:

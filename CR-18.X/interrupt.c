@@ -28,7 +28,7 @@ void __attribute__((interrupt, auto_psv)) _ISR _T2Interrupt(void) {
 
 void __attribute__((interrupt, auto_psv)) _ISR _U1RXInterrupt(void) {
     IFS0bits.U1RXIF = FALSE;
-    uart_receive(U1RXREG);
+   uart_receive(U1RXREG);
 }
 
 void __attribute__((interrupt, auto_psv)) _ISR _CNInterrupt(void) {
@@ -55,6 +55,6 @@ void __attribute__((interrupt, auto_psv)) _ISR _CNInterrupt(void) {
 
 void __attribute__((interrupt, auto_psv)) _ISR _HLVDInterrupt(void) {
     IFS4bits.HLVDIF = FALSE;
-    cr18.lora.event.low_battrey = TRUE;
+    //cr18.lora.event.low_battery = TRUE;
 
 }

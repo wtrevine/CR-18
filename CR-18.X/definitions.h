@@ -24,8 +24,8 @@
 #define BUTTON_BACK     PORTAbits.RA4
 
 /* Time leds */
-#define LED_STARTED_PERIOD      500
-#define LED_STARTED             250
+#define LED_STARTED_PERIOD      200
+#define LED_STARTED             100
 
 #define LED_START_PERIOD        1000
 #define LED_START               500
@@ -103,10 +103,11 @@ typedef struct {
 } uart_t;
 
 typedef struct {
+    uint8_t type;
     uint8_t keepalive;
     uint8_t alert;
     uint8_t violation;
-    uint8_t low_battrey;
+    uint8_t low_battery;
 }event_t;
 
 typedef struct {
@@ -227,6 +228,13 @@ enum type_time {
     MILLISECONDS
 };
 
+enum type_event {
+    EVT_KEEPALIVE=0,
+    EVT_ALERT,
+    EVT_VIOLATION,
+    EVT_LOW_BATTERY
+};
+
 //*****************************************************************************
 //******************************************************************* enum lora
 
@@ -238,10 +246,10 @@ typedef enum {
     MAC_SET_NWKSKEY,
     MAC_SET_APPSKEY,
     MAC_JOIN_ABP,
-    MAC_SET_DEVEUI,
-    MAC_SET_APPEUI,
-    MAC_SET_APPKEY,
-    MAC_JOIN_OTAA,
+    //MAC_SET_DEVEUI,
+    //MAC_SET_APPEUI,
+    //MAC_SET_APPKEY,
+    //MAC_JOIN_OTAA,
     MAC_SET_ADRON,
     MAC_SAVE,
     MAC_TX_CNF

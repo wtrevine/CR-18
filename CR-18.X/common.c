@@ -12,6 +12,17 @@ void init_pic(void) {
     ANSA = 0;
     ANSB = 0;
 
+    /* Configura PORTs */
+    PORTA = 0;
+    PORTB = 0;
+    TRISA = 0;
+    TRISB = 0;
+    LORA = TRUE;
+
+    TRISAbits.TRISA4 = 1;
+    TRISBbits.TRISB4 = 1;
+    TRISBbits.TRISB15 = 1;
+    
     /* Configura TIMER 1 - 10s */
     T1CONbits.TON = 1;
     T1CONbits.T1ECS = 0b10;
@@ -31,16 +42,6 @@ void init_pic(void) {
     U1MODEbits.BRGH = 1; //4
     U1STAbits.UTXEN = 1;
     U1BRG = 16; 
-
-    /* Configura PORTs */
-    PORTA = 0;
-    PORTB = 0;
-    TRISA = 0;
-    TRISB = 0;
-
-    TRISAbits.TRISA4 = 1;
-    TRISBbits.TRISB4 = 1;
-    TRISBbits.TRISB15 = 1;
 
     /* Configura PULL UP*/
     CNPU1bits.CN0PUE = 1;
@@ -71,7 +72,7 @@ void init_pic(void) {
     IFS4bits.HLVDIF = 0;
     IEC4bits.HLVDIE = 1;
 
-    LORA = TRUE;
+    LORA = FALSE;
     Nop();
     RED = FALSE;
     Nop();

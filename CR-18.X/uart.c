@@ -21,6 +21,27 @@ void uart_init() {
     }
 }*/
 
+void clean_event() {
+    if (cr18.lora.status == SENDING) {
+        switch (cr18.lora.event.type) {
+            case EVT_KEEPALIVE:
+                cr18.lora.event.keepalive = FALSE;
+                break;
+            case EVT_ALERT:
+                cr18.lora.event.alert = FALSE;
+                break;
+            case EVT_VIOLATION:
+                cr18.lora.event.violation = FALSE;
+                break;
+            case EVT_LOW_BATTERY:
+                cr18.lora.event.low_battery = FALSE;
+                break;
+        }
+        cr18.lora.status = READY;
+        // Prever trash
+    }
+}
+
 void uart_error(uint8_t error) {
 
     switch (error) {
@@ -29,6 +50,7 @@ void uart_error(uint8_t error) {
                 cr18.lora.error_timeout = 0;
                 cr18.uart.status = IDLE;
                 cr18.lora.command = COMMAND_NULL;
+                clean_event();
             }
             break;
 
@@ -37,6 +59,7 @@ void uart_error(uint8_t error) {
                 cr18.lora.error_buffer = 0;
                 cr18.uart.status = IDLE;
                 cr18.lora.command = COMMAND_NULL;
+                clean_event();
             }
             break;
 
@@ -45,6 +68,7 @@ void uart_error(uint8_t error) {
                 cr18.lora.error_aswer = 0;
                 cr18.uart.status = IDLE;
                 cr18.lora.command = COMMAND_NULL;
+                clean_event();
             }
             break;
 
@@ -91,7 +115,7 @@ void uart_send() {
     uint8_t i;
     for (i = 0; cr18.uart.buffer_tx[i] != 0; i++) {
         U1TXREG = cr18.uart.buffer_tx[i];
-        while (U1STAbits.TRMT);
+        while (U1STAbits.TRMT == 0);
     }
 }
 
@@ -104,8 +128,8 @@ void uart_proccess() {
             break;
 
         case SEND:
-            uart_send();
             cr18.uart.status = RECEIVE;
+            uart_send();
             counters_reset(&timeout_uart_receive, TRUE);
             break;
 
@@ -117,6 +141,8 @@ void uart_proccess() {
                 cr18.uart.status = IDLE;
                 cr18.lora.error_aswer = 0;
             }
+            cr18.uart.index = 0;
+            memset(&cr18.uart.buffer_rx, 0, SIZE_BUFFER);
             break;
 
         default:
