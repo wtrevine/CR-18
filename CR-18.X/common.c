@@ -12,12 +12,18 @@ void init_pic(void) {
     ANSA = 0;
     ANSB = 0;
 
-    /* Configura TIMER 1 */
+    /* Configura TIMER 1 - 10s */
     T1CONbits.TON = 1;
     T1CONbits.T1ECS = 0b10;
     T1CONbits.TCKPS = 0b01; //Prescale = 8
     T1CONbits.TCS = 1;
     TMR1 = TIMER1;
+    
+    /* Configura TIMER 2 - 1ms */
+    T2CONbits.TMR2ON = 1;
+    T2CONbits.T2OUTPS = 0; //1:1
+    T2CONbits.T2CKPS = 0b10; //1:16
+    TMR2 = TIMER2;
 
     /* Configura UART*/
     U1MODEbits.UARTEN = 1;
@@ -53,6 +59,9 @@ void init_pic(void) {
     IFS0bits.T1IF = 0;
     IEC0bits.T1IE = 1;
 
+    IFS0bits.T2IF = 0;
+    IEC0bits.T2IE = 1;
+    
     IFS0bits.U1RXIF = 0;
     IEC0bits.U1RXIE = 1;
 
@@ -63,9 +72,10 @@ void init_pic(void) {
     IEC4bits.HLVDIE = 1;
 
     LORA = TRUE;
+    Nop();
     RED = FALSE;
+    Nop();
     GREEN = FALSE;
-
 }
 
 void init_variables(void) {
@@ -80,19 +90,8 @@ void init_variables(void) {
 }
 
 void blink_led(void) {
-    cr18.led.period++;
-
     switch (cr18.status) {
         case STARTED:
-            if (cr18.led.period >= LED_STARTED_PERIOD)
-                cr18.led.period = 0;
-            if (cr18.led.period < LED_STARTED) {
-                RED = 1;
-                GREEN = 0;
-            } else {
-                RED = 0;
-                GREEN = 1;
-            }
             break;
 
         case START:
@@ -150,6 +149,7 @@ void blink_led(void) {
             RED = 0;
             GREEN = 0;
     }
+    cr18.led.period++;
 }
 
 void cr18_proccess() {

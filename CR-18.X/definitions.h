@@ -11,6 +11,7 @@
 #define FCY 16000UL
 
 #define TIMER1 26785 // 10s = 65535 - (10 / (1/31000 * 8))
+#define TIMER2 5 // 1ms = 255 - (0,001 / (1/4000000 * 16))
 
 #define TRUE    1
 #define FALSE   0
@@ -23,10 +24,11 @@
 #define BUTTON_BACK     PORTAbits.RA4
 
 /* Time leds */
-#define LED_START_PERIOD        1000
-#define LED_START               500
 #define LED_STARTED_PERIOD      500
 #define LED_STARTED             250
+
+#define LED_START_PERIOD        1000
+#define LED_START               500
 #define LED_VIOLATION_PERIOD    1000
 #define LED_VIOLATION           100
 #define LED_ACTIVE_PERIOD       60000
@@ -41,14 +43,15 @@
 //#define TIME_ALERT              15000
 //#define TIME_ERROR              5000
 
-/* Timeout 1m */
-#define TIMEOUT_UART_RECEIVE    2000
+/* Timeout 1 MILLISECONDS */
+#define TIMEOUT_UART_RECEIVE    2000    // Timeout para resposta do Lora
+#define TIMEOUT_ALERT           200     // Timout de debounce botão alerta
+#define TIMEOUT_VIOLATION       3000    // Timout de debounce botão violação
 
-/* Timeout 6s */
-#define TIMEOUT_ALERT           1
-#define TIMEOUT_VIOLATION       5
-#define TIMEOUT_KEEPALIVE       14400 // 24 horas
-#define TIMEOUT_INSTALATION     20 
+/* Timeout 10 SECONDS */
+
+#define TIMEOUT_KEEPALIVE       8640    // Timeout para envio de keepalive (24 horas)
+#define TIMEOUT_INSTALATION     6       // Timeout para tempo de instação, antes de habilitar violação
 
 #define SIZE_BUFFER 60
 
@@ -217,6 +220,11 @@ enum error_lora {
     TIMEOUT=0,
     BUFFER,
     ASWER
+};
+
+enum type_time {
+    SECONDS=0,
+    MILLISECONDS
 };
 
 //*****************************************************************************

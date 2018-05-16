@@ -26,6 +26,7 @@ void uart_error(uint8_t error) {
     switch (error) {
         case TIMEOUT:
             if (++cr18.lora.error_timeout >= ERROR_NUMBER) {
+                cr18.lora.error_timeout = 0;
                 cr18.uart.status = IDLE;
                 cr18.lora.command = COMMAND_NULL;
             }
@@ -33,6 +34,7 @@ void uart_error(uint8_t error) {
 
         case BUFFER:
             if (++cr18.lora.error_buffer >= ERROR_NUMBER) {
+                cr18.lora.error_buffer = 0;
                 cr18.uart.status = IDLE;
                 cr18.lora.command = COMMAND_NULL;
             }
@@ -40,6 +42,7 @@ void uart_error(uint8_t error) {
 
         case ASWER:
             if (++cr18.lora.error_aswer >= ERROR_NUMBER) {
+                cr18.lora.error_aswer = 0;
                 cr18.uart.status = IDLE;
                 cr18.lora.command = COMMAND_NULL;
             }

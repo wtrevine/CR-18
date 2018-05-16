@@ -11,7 +11,7 @@
 /* counters */
 void counters_reset(timeout_t * time, uint8_t enable);
 void counters_proccess(timeout_t * sData, uint8_t ReStart);
-void counters_interrupt();
+void counters_interrupt(uint8_t type);
 void counters_init();
 void counters_overflow_proccess(void);
 

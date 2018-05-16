@@ -34,11 +34,19 @@ void counters_proccess(timeout_t * sData, uint8_t ReStart) {
 /*
  * Chama processos
  *  */
-void counters_interrupt() {
-    counters_proccess(&timeout_uart_receive, FALSE);
-    counters_proccess(&timeout_alert, FALSE);
-    counters_proccess(&timeout_violation, FALSE);
+void counters_interrupt(uint8_t type) {
+    switch (type) {
+        case SECONDS:
+            counters_proccess(&timeout_keepalive, FALSE);
+            counters_proccess(&timeout_instalation, FALSE);
+            break;
 
+        case MILLISECONDS:
+            counters_proccess(&timeout_uart_receive, FALSE);
+            counters_proccess(&timeout_alert, FALSE);
+            counters_proccess(&timeout_violation, FALSE);
+            break;
+    }
 }
 
 /*

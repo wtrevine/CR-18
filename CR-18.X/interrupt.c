@@ -3,7 +3,27 @@
 void __attribute__((interrupt, auto_psv)) _ISR _T1Interrupt(void) {
     IFS0bits.T1IF = FALSE;
     TMR1 = TIMER1;
+    counters_interrupt(SECONDS);
     blink_led();
+}
+
+void __attribute__((interrupt, auto_psv)) _ISR _T2Interrupt(void) {
+    IFS0bits.T2IF = FALSE;
+    TMR2 = TIMER2;
+    counters_interrupt(MILLISECONDS);
+    if (cr18.status == STARTED) {
+        if (cr18.led.period >= LED_STARTED_PERIOD)
+            cr18.led.period = 0;
+        if (cr18.led.period++ < LED_STARTED) {
+            RED = 1;
+            Nop();
+            GREEN = 0;
+        } else {
+            RED = 0;
+            Nop();
+            GREEN = 1;
+        }
+    }
 }
 
 void __attribute__((interrupt, auto_psv)) _ISR _U1RXInterrupt(void) {
