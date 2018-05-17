@@ -1,16 +1,5 @@
 #include "main.h"
 
-ST_UART stUART2;
-ST_TEMPORIZACAO stTemporizacao;
-ST_LORA stLoRa;
-unsigned char byTemDadosParaEnviar;
-int wRetTrataCmdLoRa;
-unsigned char byTemRespostaIntermediaria;
-unsigned char byBufferUART2Tx[TAM_BUFF_TX_UART2];
-unsigned char byBufferUART2Rx[TAM_BUFF_RX_UART2];
-
-unsigned char byEnviaBuffer;
-
 /* 
  * Carrega comando no buffer TX e encaminha para enviar
  */
@@ -61,16 +50,13 @@ static void load_command(uint8_t command) {
             if (cr18.lora.event.keepalive) {
                 sprintf((char*) cr18.uart.buffer_tx, "mac tx cnf 1 10");
                 cr18.lora.event.type = EVT_KEEPALIVE;
-            }
-            else if (cr18.lora.event.alert) {
+            } else if (cr18.lora.event.alert) {
                 sprintf((char*) cr18.uart.buffer_tx, "mac tx cnf 1 20");
                 cr18.lora.event.type = EVT_ALERT;
-            }
-            else if (cr18.lora.event.violation) {
+            } else if (cr18.lora.event.violation) {
                 sprintf((char*) cr18.uart.buffer_tx, "mac tx cnf 1 30");
                 cr18.lora.event.type = EVT_VIOLATION;
-            }
-            else if (cr18.lora.event.low_battery) {
+            } else if (cr18.lora.event.low_battery) {
                 sprintf((char*) cr18.uart.buffer_tx, "mac tx cnf 1 40");
                 cr18.lora.event.type = EVT_LOW_BATTERY;
             }
@@ -133,6 +119,10 @@ uint8_t lora_compare_command() {
                 cr18.status = START;
                 cr18.lora.status = READY;
                 cr18.lora.config = TRUE;
+                counters_reset(&timeout_instalation, TRUE);
+                RED = 0;
+                Nop();
+                GREEN = 0;
             }
             break;
 
@@ -148,57 +138,6 @@ uint8_t lora_compare_command() {
     }
     return error;
 }
-/*
-static void proccess(void) {
-    uint16_t i;
-    if (stLoRa.byEstadoTrataComandos == AGUARDANDO_ENVIO_DE_COMANDO) {
-        stLoRa.byEstadoTrataComandos = AGUARDANDO_RESPOSTA;
-        byEnviaBuffer = TRUE;
-        byTemRespostaIntermediaria = FALSE;
-
-        //load_command();
-
-        if (byEnviaBuffer == TRUE) {
-            for (i = 0; i < TAM_BUFF_RX_UART2; i++) {
-                byBufferUART2Rx[i] = 0x00;
-            }
-            stUART2.wIndexBuffer = 0;
-            uart_send(byBufferUART2Tx);
-            wRetTrataCmdLoRa = 1; //-- Aguardando Resposta
-        }
-    } else if (stLoRa.byEstadoTrataComandos == AGUARDANDO_RESPOSTA) {
-        if (stUART2.byBufferOk == TRUE) {
-            //-- Trata resposta do Comando AT
-            wRetTrataCmdLoRa = -1; //-- Erro na resposta
-
-            compare_command();
-
-            stUART2.byBufferOk = FALSE;
-
-        } else {
-            if (stLoRa.wTimeOutResposta == 0) {
-                //-- Houve Time-out
-                stLoRa.byEstadoTrataComandos = AGUARDANDO_ENVIO_DE_COMANDO;
-                wRetTrataCmdLoRa = -2; //-- Time-out na resposta do comando
-            }
-        }
-    }
-}*/
-
-/*static void check_answer(uint8_t success_state) {
-    if (wRetTrataCmdLoRa != 1) {
-        if (wRetTrataCmdLoRa == 0) {
-            cr18.lora.command = success_state;
-            cr18.lora.error_counter = 0;
-            stTemporizacao.wT_TimeoutMaqLoRa = K_TEMPO_TIMEOUT_LORA;
-            stLoRa.byEstadoTrataComandos = AGUARDANDO_ENVIO_DE_COMANDO;
-        } else if (cr18.lora.error_counter++ >= ERROR_NUMBER) {
-            cr18.lora.command = SYS_RESET;
-            cr18.lora.error_counter = 0;
-        }
-
-    }
-}*/
 
 /* 
  * Encaminha proximo comando para ser carreado
@@ -273,5 +212,4 @@ void lora_proccess() {
         default:
             break;
     }
-
 }

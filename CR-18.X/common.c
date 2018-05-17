@@ -22,14 +22,14 @@ void init_pic(void) {
     TRISAbits.TRISA4 = 1;
     TRISBbits.TRISB4 = 1;
     TRISBbits.TRISB15 = 1;
-    
+
     /* Configura TIMER 1 - 10s */
     T1CONbits.TON = 1;
     T1CONbits.T1ECS = 0b10;
     T1CONbits.TCKPS = 0b01; //Prescale = 8
     T1CONbits.TCS = 1;
     TMR1 = TIMER1;
-    
+
     /* Configura TIMER 2 - 1ms */
     T2CONbits.TMR2ON = 1;
     T2CONbits.T2OUTPS = 0; //1:1
@@ -41,7 +41,7 @@ void init_pic(void) {
     U1MODEbits.RTSMD = 1;
     U1MODEbits.BRGH = 1; //4
     U1STAbits.UTXEN = 1;
-    U1BRG = 16; 
+    U1BRG = 16;
 
     /* Configura PULL UP*/
     CNPU1bits.CN0PUE = 1;
@@ -50,7 +50,7 @@ void init_pic(void) {
     /* Configura pinos de mudança de estados */
     CNEN1bits.CN0IE = 1;
     CNEN1bits.CN1IE = 1;
-    
+
     /* Configura detector de baixa tensão */
     HLVDCONbits.HLVDEN = 1;
     HLVDCONbits.IRVST = 1;
@@ -62,7 +62,7 @@ void init_pic(void) {
 
     IFS0bits.T2IF = 0;
     IEC0bits.T2IE = 1;
-    
+
     IFS0bits.U1RXIF = 0;
     IEC0bits.U1RXIE = 1;
 
@@ -83,7 +83,7 @@ void init_variables(void) {
 
     cr18.status = STARTED;
 
-    cr18.lora.status = DISABLED;
+    cr18.lora.status = CONFIG;
     cr18.lora.config = FALSE;
     cr18.lora.command = COMMAND_NULL;
 
@@ -96,67 +96,70 @@ void blink_led(void) {
             break;
 
         case START:
-            RED = 0;
-            if (cr18.led.period >= LED_START_PERIOD)
+            if (++cr18.led.period >= LED_START_PERIOD) {
                 cr18.led.period = 0;
-            if (cr18.led.period < LED_START)
+                cr18.led.number_blink = LED_START_BLINK;
+                cr18.led.led_color_active = LED_GREEN;
                 GREEN = 1;
-            else
-                GREEN = 0;
+                counters_reset(&timeout_blink_led_off, TRUE);
+            }
             break;
 
         case VIOLATION:
-            GREEN = 0;
-            if (cr18.led.period >= LED_VIOLATION_PERIOD)
+            if (++cr18.led.period >= LED_VIOLATION_PERIOD) {
                 cr18.led.period = 0;
-            if (cr18.led.period < LED_VIOLATION)
+                cr18.led.number_blink = LED_VIOLATION_BLINK;
+                cr18.led.led_color_active = LED_RED;
                 RED = 1;
-            else
-                RED = 0;
+                counters_reset(&timeout_blink_led_off, TRUE);
+            }
             break;
 
         case ACTIVE:
-            RED = 0;
-            if (cr18.led.period >= LED_ACTIVE_PERIOD)
+            if (++cr18.led.period >= LED_ACTIVE_PERIOD) {
                 cr18.led.period = 0;
-            if (cr18.led.period < LED_ACTIVE)
+                cr18.led.number_blink = LED_ACTIVE_BLINK;
+                cr18.led.led_color_active = LED_GREEN;
                 GREEN = 1;
-            else
-                GREEN = 0;
+                counters_reset(&timeout_blink_led_off, TRUE);
+            }
             break;
 
         case ALERT:
-            GREEN = 0;
-            if (cr18.led.period >= LED_ALERT_PERIOD)
+            if (++cr18.led.period >= LED_ALERT_PERIOD) {
                 cr18.led.period = 0;
-            if (cr18.led.period < LED_ALERT)
+                cr18.led.number_blink = LED_ALERT_BLINK;
+                cr18.led.led_color_active = LED_RED;
                 RED = 1;
-            else
-                RED = 0;
+                counters_reset(&timeout_blink_led_off, TRUE);
+            }
             break;
 
         case ERROR:
-            GREEN = 0;
-            if (cr18.led.period >= LED_ERROR_PERIOD)
+            if (++cr18.led.period >= LED_ERROR_PERIOD) {
                 cr18.led.period = 0;
-            if (cr18.led.period < LED_ERROR)
+                cr18.led.number_blink = LED_ERROR_BLINK;
+                cr18.led.led_color_active = LED_RED;
                 RED = 1;
-            else
-                RED = 0;
+                counters_reset(&timeout_blink_led_off, TRUE);
+            }
+            break;
+
+        case OFF:
+            // Desabilitar TIMER 1
             break;
 
         default:
             cr18.led.period = 0;
             RED = 0;
+            Nop();
             GREEN = 0;
     }
-    cr18.led.period++;
 }
 
 void cr18_proccess() {
     switch (cr18.status) {
         case STARTED:
-            cr18.lora.status = CONFIG;
             break;
 
         case START:
@@ -176,5 +179,10 @@ void cr18_proccess() {
 
         default:
             break;
+    }
+    if (cr18.status != cr18.status_previous) {
+        cr18.status_previous = cr18.status;
+        IFS0bits.T1IF = TRUE;
+        TMR1 = TIMER1;
     }
 }

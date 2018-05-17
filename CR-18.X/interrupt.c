@@ -12,9 +12,9 @@ void __attribute__((interrupt, auto_psv)) _ISR _T2Interrupt(void) {
     TMR2 = TIMER2;
     counters_interrupt(MILLISECONDS);
     if (cr18.status == STARTED) {
-        if (cr18.led.period >= LED_STARTED_PERIOD)
+        if (cr18.led.period >= LED_STARTED_CYCLE)
             cr18.led.period = 0;
-        if (cr18.led.period++ < LED_STARTED) {
+        if (cr18.led.period++ < LED_STARTED_PERIOD_ON) {
             RED = 1;
             Nop();
             GREEN = 0;
@@ -37,18 +37,19 @@ void __attribute__((interrupt, auto_psv)) _ISR _CNInterrupt(void) {
     if (BUTTON_FRONT != cr18.bt_front_previous) {
         cr18.bt_front_previous = BUTTON_FRONT;
         if (BUTTON_FRONT == FALSE) {
-            counters_reset(&timeout_alert, TRUE);
+            counters_reset(&timeout_debounce_alert, TRUE);
         } else {
-            counters_reset(&timeout_alert, FALSE);
+            counters_reset(&timeout_debounce_alert, FALSE);
         }
     }
 
     if (BUTTON_BACK != cr18.bt_back_previous) {
         cr18.bt_back_previous = BUTTON_BACK;
         if (BUTTON_BACK == TRUE) {
-            counters_reset(&timeout_violation, TRUE);
+            counters_reset(&timeout_debounce_violation, TRUE);
         } else {
-            counters_reset(&timeout_violation, FALSE);
+            counters_reset(&timeout_debounce_violation, FALSE);
+            cr18.lora.instalation = TRUE;
         }
     }
 }

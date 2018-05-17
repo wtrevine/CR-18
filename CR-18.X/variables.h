@@ -13,17 +13,7 @@ extern cr18_t cr18;
 //*****************************************************************************
 
 //************************************************************************ lora
-extern ST_UART stUART2;
-extern ST_TEMPORIZACAO stTemporizacao;
-extern ST_LORA stLoRa;
-extern unsigned char byTemDadosParaEnviar;
-extern int wRetTrataCmdLoRa;
-extern unsigned char byTemRespostaIntermediaria;
-extern unsigned char byBufferUART2Tx[TAM_BUFF_TX_UART2];
-extern unsigned char byBufferUART2Rx[TAM_BUFF_RX_UART2];
-extern unsigned char byBufferAux[32];
 
-extern unsigned char byEnviaBuffer;
 //*****************************************************************************
 
 //************************************************************************ uart
@@ -34,8 +24,12 @@ extern unsigned char byEnviaBuffer;
 extern timeout_t timeout_uart_receive;
 extern timeout_t timeout_alert;
 extern timeout_t timeout_violation;
+extern timeout_t timeout_debounce_alert;
+extern timeout_t timeout_debounce_violation;
 extern timeout_t timeout_keepalive;
 extern timeout_t timeout_instalation;
+extern timeout_t timeout_blink_led_on;
+extern timeout_t timeout_blink_led_off;
 //*****************************************************************************
 #endif
 
