@@ -7,6 +7,7 @@ timeout_t timeout_alert;
 timeout_t timeout_violation;
 timeout_t timeout_debounce_alert;
 timeout_t timeout_debounce_violation;
+timeout_t timeout_debounce_instalation;
 timeout_t timeout_keepalive;
 timeout_t timeout_instalation;
 timeout_t timeout_blink_led_on;
@@ -51,6 +52,7 @@ void counters_interrupt(uint8_t type) {
             counters_proccess(&timeout_uart_receive, FALSE);
             counters_proccess(&timeout_debounce_alert, FALSE);
             counters_proccess(&timeout_debounce_violation, FALSE);
+            counters_proccess(&timeout_debounce_instalation, FALSE);
             counters_proccess(&timeout_blink_led_on, FALSE);
             counters_proccess(&timeout_blink_led_off, FALSE);
             break;
@@ -66,6 +68,7 @@ void counters_init() {
     timeout_violation.count_max = TIMEOUT_VIOLATION;
     timeout_debounce_alert.count_max = TIMEOUT_DEBOUNCE_ALERT;
     timeout_debounce_violation.count_max = TIMEOUT_DEBOUNCE_VIOLATION;
+    timeout_debounce_instalation.count_max = TIMEOUT_DEBOUNCE_INSTALATION;
     timeout_keepalive.count_max = TIMEOUT_KEEPALIVE;
     timeout_instalation.count_max = TIMEOUT_INSTALATION;
     timeout_blink_led_on.count_max = TIMEOUT_BLINK_LED_ON;
@@ -77,27 +80,41 @@ void counters_init() {
  * Verifica estoutoros dos temporizadores
  */
 void counters_overflow_proccess(void) {
+    /* Timeout de resposta de comando LoRa */
     if (timeout_uart_receive.overflow == TRUE) {
         timeout_uart_receive.overflow = FALSE;
         cr18.uart.status = SEND;
         uart_error(TIMEOUT);
     }
 
+    /* Botão de alarta acionado */
     if (timeout_debounce_alert.overflow == TRUE) {
         timeout_debounce_alert.overflow = FALSE;
         cr18.status = ALERT;
         cr18.lora.event.alert = TRUE;
+        T1CONbits.TON = 1;
         counters_reset(&timeout_alert, TRUE);
     }
 
+    /* Botão violado */
     if (timeout_debounce_violation.overflow == TRUE) {
         timeout_debounce_violation.overflow = FALSE;
         cr18.lora.instalation = FALSE;
         cr18.status = VIOLATION;
         cr18.lora.event.violation = TRUE;
+        T1CONbits.TON = 1;
         counters_reset(&timeout_violation, TRUE);
     }
 
+    /* Botão instalado */
+    if (timeout_debounce_instalation.overflow == TRUE) {
+        timeout_debounce_instalation.overflow = FALSE;
+        cr18.lora.instalation = TRUE;
+        cr18.status = ACTIVE;
+        T1CONbits.TON = 1;
+    }
+
+    /* Tempo de exibição modo alerta */
     if (timeout_alert.overflow == TRUE) {
         timeout_alert.overflow = FALSE;
         cr18.status = OFF;
@@ -107,6 +124,7 @@ void counters_overflow_proccess(void) {
             cr18.status = OFF;
     }
 
+    /* Tempo de exibição modo violação */
     if (timeout_violation.overflow == TRUE) {
         timeout_violation.overflow = FALSE;
         if (cr18.lora.instalation == TRUE)
@@ -115,12 +133,14 @@ void counters_overflow_proccess(void) {
             cr18.status = OFF;
     }
 
+    /* Envia Keepalive */
     if (timeout_keepalive.overflow == TRUE) {
         timeout_keepalive.overflow = FALSE;
         cr18.lora.event.keepalive = TRUE;
         //Alterar evento de keepalive para violação caso violado
     }
 
+    /* Aguarda instalação para enviar violação */
     if (timeout_instalation.overflow == TRUE) {
         timeout_instalation.overflow = FALSE;
         cr18.status = VIOLATION;
@@ -128,6 +148,7 @@ void counters_overflow_proccess(void) {
         counters_reset(&timeout_violation, TRUE);
     }
 
+    /* Tempo led aceso */
     if (timeout_blink_led_on.overflow == TRUE) {
         timeout_blink_led_on.overflow = FALSE;
         if (cr18.led.led_color_active == LED_RED)
@@ -137,6 +158,7 @@ void counters_overflow_proccess(void) {
         counters_reset(&timeout_blink_led_off, TRUE);
     }
 
+    /* Tempo led apagado */
     if (timeout_blink_led_off.overflow == TRUE) {
         timeout_blink_led_off.overflow = FALSE;
         RED = 0;

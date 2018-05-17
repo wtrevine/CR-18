@@ -27,11 +27,11 @@
 #define LED_STARTED_CYCLE       200
 #define LED_STARTED_PERIOD_ON   100
 
-#define LED_START_PERIOD        1
+#define LED_START_PERIOD        2
 #define LED_START_BLINK         1
 #define LED_VIOLATION_PERIOD    1
 #define LED_VIOLATION_BLINK     5
-#define LED_ACTIVE_PERIOD       6
+#define LED_ACTIVE_PERIOD       1 //6
 #define LED_ACTIVE_BLINK        1
 #define LED_ALERT_PERIOD        1
 #define LED_ALERT_BLINK         2
@@ -44,11 +44,12 @@
 //#define TIME_ERROR              5000
 
 /* Timeout 1 MILLISECONDS */
-#define TIMEOUT_UART_RECEIVE        2000    // Timeout para resposta do Lora
-#define TIMEOUT_DEBOUNCE_ALERT      50      // Timeout de debounce botão alerta
-#define TIMEOUT_DEBOUNCE_VIOLATION  3000    // Timeout de debounce botão violação
-#define TIMEOUT_BLINK_LED_ON        200     // Timeout led ligado
-#define TIMEOUT_BLINK_LED_OFF       200     // Timeout led desligado
+#define TIMEOUT_UART_RECEIVE            2000    // Timeout para resposta do Lora
+#define TIMEOUT_DEBOUNCE_ALERT          50      // Timeout de debounce botão alerta
+#define TIMEOUT_DEBOUNCE_VIOLATION      1500    // Timeout de debounce botão violado
+#define TIMEOUT_DEBOUNCE_INSTALATION    3000    // Timeout de debounce botão instalado
+#define TIMEOUT_BLINK_LED_ON            100     // Timeout led ligado
+#define TIMEOUT_BLINK_LED_OFF           100     // Timeout led desligado
 
 
 /* Timeout 10 SECONDS */

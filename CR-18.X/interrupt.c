@@ -28,7 +28,7 @@ void __attribute__((interrupt, auto_psv)) _ISR _T2Interrupt(void) {
 
 void __attribute__((interrupt, auto_psv)) _ISR _U1RXInterrupt(void) {
     IFS0bits.U1RXIF = FALSE;
-   uart_receive(U1RXREG);
+    uart_receive(U1RXREG);
 }
 
 void __attribute__((interrupt, auto_psv)) _ISR _CNInterrupt(void) {
@@ -47,9 +47,11 @@ void __attribute__((interrupt, auto_psv)) _ISR _CNInterrupt(void) {
         cr18.bt_back_previous = BUTTON_BACK;
         if (BUTTON_BACK == TRUE) {
             counters_reset(&timeout_debounce_violation, TRUE);
+            counters_reset(&timeout_debounce_instalation, FALSE);
         } else {
             counters_reset(&timeout_debounce_violation, FALSE);
-            cr18.lora.instalation = TRUE;
+            if (cr18.lora.instalation == FALSE)
+                counters_reset(&timeout_debounce_instalation, TRUE);
         }
     }
 }

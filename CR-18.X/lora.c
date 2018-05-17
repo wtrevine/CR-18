@@ -120,9 +120,6 @@ uint8_t lora_compare_command() {
                 cr18.lora.status = READY;
                 cr18.lora.config = TRUE;
                 counters_reset(&timeout_instalation, TRUE);
-                RED = 0;
-                Nop();
-                GREEN = 0;
             }
             break;
 

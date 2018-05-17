@@ -88,6 +88,9 @@ void init_variables(void) {
     cr18.lora.command = COMMAND_NULL;
 
     cr18.uart.status = IDLE;
+
+    cr18.bt_front_previous = TRUE;
+    cr18.bt_back_previous = TRUE;
 }
 
 void blink_led(void) {
@@ -146,7 +149,7 @@ void blink_led(void) {
             break;
 
         case OFF:
-            // Desabilitar TIMER 1
+            T1CONbits.TON = 0;
             break;
 
         default:
@@ -182,6 +185,10 @@ void cr18_proccess() {
     }
     if (cr18.status != cr18.status_previous) {
         cr18.status_previous = cr18.status;
+        cr18.led.period = 0;
+        RED = 0;
+        Nop();
+        GREEN = 0;
         IFS0bits.T1IF = TRUE;
         TMR1 = TIMER1;
     }

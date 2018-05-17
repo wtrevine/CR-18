@@ -26,6 +26,7 @@ extern timeout_t timeout_alert;
 extern timeout_t timeout_violation;
 extern timeout_t timeout_debounce_alert;
 extern timeout_t timeout_debounce_violation;
+extern timeout_t timeout_debounce_instalation;
 extern timeout_t timeout_keepalive;
 extern timeout_t timeout_instalation;
 extern timeout_t timeout_blink_led_on;
