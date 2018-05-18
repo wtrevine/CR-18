@@ -10,7 +10,7 @@
 
 #define FCY 16000UL
 
-#define TIMER1 26785 // 10s = 65535 - (10 / (1/31000 * 8))
+#define TIMER1 38750 // 10s = 10 / (1/31000 * 8)
 #define TIMER2 5 // 1ms = 255 - (0,001 / (1/4000000 * 16))
 
 #define TRUE    1
@@ -28,7 +28,7 @@
 #define LED_STARTED_PERIOD_ON   100
 
 #define LED_START_PERIOD        2
-#define LED_START_BLINK         1
+#define LED_START_BLINK         2
 #define LED_VIOLATION_PERIOD    1
 #define LED_VIOLATION_BLINK     5
 #define LED_ACTIVE_PERIOD       1 //6
@@ -89,7 +89,7 @@ typedef struct {
     uint8_t alert;
     uint8_t violation;
     uint8_t low_battery;
-}event_t;
+} event_t;
 
 typedef struct {
     uint8_t status;
@@ -115,6 +115,7 @@ typedef struct {
 //*****************************************************************************
 
 //***************************************************** struct process_counters
+
 typedef struct {
     uint8_t enable;
     uint8_t overflow;
@@ -132,14 +133,14 @@ typedef struct {
 //******************************************************************* enum main
 
 enum status_cr18 {
-    STARTED = 0,    // Pisca led's indicando inicialização
-    START,          // Aguarda ser fixado na parede
-    VIOLATION,      // Violado - Botão Traseiro solto
-    ACTIVE,         // Ativo - Em funcionamento normal
-    ALERT,          // Modo alerta - Botão frontal precionado
-    ERROR,          // Modo de erro
-    OFF             // Led desligado - Aguardando instalação
-    
+    STARTED = 0, // Pisca led's indicando inicialização
+    START, // Aguarda ser fixado na parede
+    VIOLATION, // Violado - Botão Traseiro solto
+    ACTIVE, // Ativo - Em funcionamento normal
+    ALERT, // Modo alerta - Botão frontal precionado
+    ERROR, // Modo de erro
+    OFF // Led desligado - Aguardando instalação
+
 };
 
 enum status_lora {
@@ -150,32 +151,32 @@ enum status_lora {
 };
 
 enum status_uart {
-    IDLE=0,
+    IDLE = 0,
     RECEIVE,
     SEND,
     PROCCESS
 };
 
 enum error_lora {
-    TIMEOUT=0,
+    TIMEOUT = 0,
     BUFFER,
     ASWER
 };
 
 enum type_time {
-    SECONDS=0,
+    SECONDS = 0,
     MILLISECONDS
 };
 
 enum type_event {
-    EVT_KEEPALIVE=0,
+    EVT_KEEPALIVE = 0,
     EVT_ALERT,
     EVT_VIOLATION,
     EVT_LOW_BATTERY
 };
 
 enum type_led {
-    LED_RED=0,
+    LED_RED = 0,
     LED_GREEN
 };
 
@@ -183,7 +184,7 @@ enum type_led {
 //******************************************************************* enum lora
 
 typedef enum {
-    COMMAND_NULL=0,
+    COMMAND_NULL = 0,
     SYS_RESET,
     MAC_RESET,
     MAC_SET_DEVADDR,

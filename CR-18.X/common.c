@@ -28,7 +28,8 @@ void init_pic(void) {
     T1CONbits.T1ECS = 0b10;
     T1CONbits.TCKPS = 0b01; //Prescale = 8
     T1CONbits.TCS = 1;
-    TMR1 = TIMER1;
+    TMR1 = 0;
+    PR1 = TIMER1;
 
     /* Configura TIMER 2 - 1ms */
     T2CONbits.TMR2ON = 1;
@@ -89,8 +90,11 @@ void init_variables(void) {
 
     cr18.uart.status = IDLE;
 
-    cr18.bt_front_previous = TRUE;
-    cr18.bt_back_previous = TRUE;
+    cr18.bt_front_previous = BUTTON_FRONT;
+    cr18.bt_back_previous = BUTTON_BACK;
+
+    if (BUTTON_BACK == FALSE)
+        cr18.lora.instalation = TRUE;
 }
 
 void blink_led(void) {
@@ -190,6 +194,5 @@ void cr18_proccess() {
         Nop();
         GREEN = 0;
         IFS0bits.T1IF = TRUE;
-        TMR1 = TIMER1;
     }
 }

@@ -110,6 +110,7 @@ void counters_overflow_proccess(void) {
     if (timeout_debounce_instalation.overflow == TRUE) {
         timeout_debounce_instalation.overflow = FALSE;
         cr18.lora.instalation = TRUE;
+        counters_reset(&timeout_instalation, FALSE);
         cr18.status = ACTIVE;
         T1CONbits.TON = 1;
     }
@@ -117,7 +118,6 @@ void counters_overflow_proccess(void) {
     /* Tempo de exibição modo alerta */
     if (timeout_alert.overflow == TRUE) {
         timeout_alert.overflow = FALSE;
-        cr18.status = OFF;
         if (cr18.lora.instalation == TRUE)
             cr18.status = ACTIVE;
         else

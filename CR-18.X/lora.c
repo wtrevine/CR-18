@@ -116,10 +116,13 @@ uint8_t lora_compare_command() {
         case MAC_SAVE:
             if (strcmp((char *) cr18.uart.buffer_rx, "ok\r\n") == 0) {
                 error = FALSE;
-                cr18.status = START;
                 cr18.lora.status = READY;
                 cr18.lora.config = TRUE;
-                counters_reset(&timeout_instalation, TRUE);
+                if (cr18.lora.instalation == FALSE) {
+                    counters_reset(&timeout_instalation, TRUE);
+                    cr18.status = START;
+                } else
+                    cr18.status = ACTIVE;
             }
             break;
 

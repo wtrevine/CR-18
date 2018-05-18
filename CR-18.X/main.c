@@ -44,9 +44,9 @@ cr18_t cr18;
 
 int main(void) {
     init_pic();
-    init_variables();
     counters_init();
-
+    init_variables();
+    
     while (1) {
         ClrWdt();
         cr18_proccess();

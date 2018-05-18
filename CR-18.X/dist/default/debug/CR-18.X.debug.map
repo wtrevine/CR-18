@@ -1,32 +1,32 @@
 Microchip Technology Inc, v1.33 (A)
 
 Tool Name:
-  /opt/microchip/xc16/v1.33/bin/bin/../bin/elf-ld
+  c:\program files (x86)\microchip\xc16\v1.33\bin\bin\..\bin/elf-ld.exe
 
 Command:
   -p24F08KL200 \
   -o \
   dist/default/debug/CR-18.X.debug.elf \
-  -L/opt/microchip/xc16/v1.33/bin/bin/.. \
-  -L/opt/microchip/xc16/v1.33/bin/bin/../../lib \
-  -L/opt/microchip/xc16/v1.33/bin/bin/../../support/PIC24E/gld \
-  -L/opt/microchip/xc16/v1.33/bin/bin/../../support/PIC24F/gld \
-  -L/opt/microchip/xc16/v1.33/bin/bin/../../support/PIC24H/gld \
-  -L/opt/microchip/xc16/v1.33/bin/bin/../../support/dsPIC30F/gld \
-  -L/opt/microchip/xc16/v1.33/bin/bin/../../support/dsPIC33C/gld \
-  -L/opt/microchip/xc16/v1.33/bin/bin/../../support/dsPIC33E/gld \
-  -L/opt/microchip/xc16/v1.33/bin/bin/../../support/dsPIC33F/gld \
+  -Lc:/program files (x86)/microchip/xc16/v1.33/bin/bin/.. \
+  -Lc:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib \
+  -Lc:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../support/PIC24E/gld \
+  -Lc:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../support/PIC24F/gld \
+  -Lc:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../support/PIC24H/gld \
+  -Lc:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../support/dsPIC30F/gld \
+  -Lc:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../support/dsPIC33C/gld \
+  -Lc:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../support/dsPIC33E/gld \
+  -Lc:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../support/dsPIC33F/gld \
   build/default/debug/main.o \
   build/default/debug/common.o \
   build/default/debug/uart.o \
   build/default/debug/interrupt.o \
   build/default/debug/counters.o \
   build/default/debug/lora.o \
-  -T/tmp/tmp00003e57.00 \
-  -T/tmp/tmp00003e57.01 \
-  -T/tmp/tmp00003e57.02 \
-  -T/tmp/tmp00003e57.03 \
-  -T/tmp/tmp00003e57.04 \
+  -TC:\\Users\\WILLIA~1\\AppData\\Local\\Temp\\tmp00000168.00 \
+  -TC:\\Users\\WILLIA~1\\AppData\\Local\\Temp\\tmp00000168.01 \
+  -TC:\\Users\\WILLIA~1\\AppData\\Local\\Temp\\tmp00000168.02 \
+  -TC:\\Users\\WILLIA~1\\AppData\\Local\\Temp\\tmp00000168.03 \
+  -TC:\\Users\\WILLIA~1\\AppData\\Local\\Temp\\tmp00000168.04 \
   --defsym=__MPLAB_BUILD=1 \
   --defsym=__MPLAB_DEBUG=1 \
   --defsym=__DEBUG=1 \
@@ -57,17 +57,17 @@ Command:
 Optional library libpPIC24Fxxx.a not found
 Archive member included because of file (symbol)
 
-/opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-pic30-elf.a(crt0_standard.o)
+c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o)
                               (__resetPRI)
-/opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-pic30-elf.a(data_init_standard.o)
-                              /opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-pic30-elf.a(crt0_standard.o) (__data_init_standard)
-/opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-pic30-elf.a(crt_start_mode_normal.Leo)
+c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(data_init_standard.o)
+                              c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o) (__data_init_standard)
+c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(crt_start_mode_normal.Leo)
                               (__crt_start_mode_normal)
-/opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-c-elf.a(memcpy.XX_eo)
+c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(memcpy.XX_eo)
                               build/default/debug/lora.o (_memcpy)
-/opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-c-elf.a(memset.XX_eo)
+c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(memset.XX_eo)
                               build/default/debug/uart.o (_memset)
-/opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-c-elf.a(strcmp.XX_eo)
+c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(strcmp.XX_eo)
                               build/default/debug/lora.o (_strcmp)
 
 
@@ -94,12 +94,12 @@ Program Memory  [Origin = 0x200, Length = 0x1400]
 
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
-.text                        0x200               0x266           0x399  (921)
-.const                       0x466               0x128           0x1bc  (444)
-.text                        0x58e               0x88e           0xcd5  (3285)
-.dinit                       0xe1c                 0xe            0x15  (21)
+.text                        0x200               0x264           0x396  (918)
+.const                       0x464               0x128           0x1bc  (444)
+.text                        0x58c               0x8ae           0xd05  (3333)
+.dinit                       0xe3a                 0xe            0x15  (21)
 
-                 Total program memory used (bytes):         0x123f  (4671) 60%
+                 Total program memory used (bytes):         0x126c  (4716) 61%
 
 
 Ivt Memory  [Origin = 0x4, Length = 0xfc]
@@ -169,77 +169,77 @@ External Symbols in Program Memory (by address):
 
                   0x000200                  __resetPRI
                   0x00023c                  __psv_init
-                  0x000252                  __data_init
                   0x000252                  __data_init_standard
+                  0x000252                  __data_init
                   0x0002c8                  __T1Interrupt
-                  0x0002f6                  __T2Interrupt
-                  0x000354                  __U1RXInterrupt
-                  0x00037e                  __CNInterrupt
-                  0x000410                  __HLVDInterrupt
-                  0x000424                  __DefaultInterrupt
-                  0x00042a                  _memcpy
-                  0x000438                  _memset
-                  0x000446                  _strcmp
-                  0x00069a                  _lora_compare_command
-                  0x000810                  _lora_proccess
-                  0x00088c                  _counters_reset
-                  0x0008a8                  _counters_proccess
-                  0x0008ea                  _counters_interrupt
-                  0x00093e                  _counters_init
-                  0x000980                  _counters_overflow_proccess
-                  0x000aac                  _init_pic
-                  0x000b4c                  _init_variables
-                  0x000b66                  _blink_led
-                  0x000c52                  _cr18_proccess
-                  0x000c76                  _uart_init
-                  0x000c7c                  _clean_event
-                  0x000cb8                  _uart_error
-                  0x000d1e                  _uart_receive
-                  0x000d74                  _uart_send
-                  0x000dae                  _uart_proccess
-                  0x000e08                  _main
+                  0x0002f4                  __T2Interrupt
+                  0x000352                  __U1RXInterrupt
+                  0x00037c                  __CNInterrupt
+                  0x00040e                  __HLVDInterrupt
+                  0x000422                  __DefaultInterrupt
+                  0x000428                  _memcpy
+                  0x000436                  _memset
+                  0x000444                  _strcmp
+                  0x000698                  _lora_compare_command
+                  0x00081a                  _lora_proccess
+                  0x000896                  _counters_reset
+                  0x0008b2                  _counters_proccess
+                  0x0008f4                  _counters_interrupt
+                  0x000948                  _counters_init
+                  0x00098a                  _counters_overflow_proccess
+                  0x000ab8                  _init_pic
+                  0x000b5a                  _init_variables
+                  0x000b88                  _blink_led
+                  0x000c74                  _cr18_proccess
+                  0x000c94                  _uart_init
+                  0x000c9a                  _clean_event
+                  0x000cd6                  _uart_error
+                  0x000d3c                  _uart_receive
+                  0x000d92                  _uart_send
+                  0x000dcc                  _uart_proccess
+                  0x000e26                  _main
                   0xf80000                  __FBS.sec
                   0xf80004                  __FGS.sec
 
 External Symbols in Program Memory (by name):
 
-                  0x00037e                  __CNInterrupt
-                  0x000424                  __DefaultInterrupt
+                  0x00037c                  __CNInterrupt
+                  0x000422                  __DefaultInterrupt
                   0xf80000                  __FBS.sec
                   0xf80004                  __FGS.sec
-                  0x000410                  __HLVDInterrupt
+                  0x00040e                  __HLVDInterrupt
                   0x0002c8                  __T1Interrupt
-                  0x0002f6                  __T2Interrupt
-                  0x000354                  __U1RXInterrupt
+                  0x0002f4                  __T2Interrupt
+                  0x000352                  __U1RXInterrupt
                   0x000252                  __data_init
                   0x000252                  __data_init_standard
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
-                  0x000b66                  _blink_led
-                  0x000c7c                  _clean_event
-                  0x00093e                  _counters_init
-                  0x0008ea                  _counters_interrupt
-                  0x000980                  _counters_overflow_proccess
-                  0x0008a8                  _counters_proccess
-                  0x00088c                  _counters_reset
-                  0x000c52                  _cr18_proccess
-                  0x000aac                  _init_pic
-                  0x000b4c                  _init_variables
-                  0x00069a                  _lora_compare_command
-                  0x000810                  _lora_proccess
-                  0x000e08                  _main
-                  0x00042a                  _memcpy
-                  0x000438                  _memset
-                  0x000446                  _strcmp
-                  0x000cb8                  _uart_error
-                  0x000c76                  _uart_init
-                  0x000dae                  _uart_proccess
-                  0x000d1e                  _uart_receive
-                  0x000d74                  _uart_send
+                  0x000b88                  _blink_led
+                  0x000c9a                  _clean_event
+                  0x000948                  _counters_init
+                  0x0008f4                  _counters_interrupt
+                  0x00098a                  _counters_overflow_proccess
+                  0x0008b2                  _counters_proccess
+                  0x000896                  _counters_reset
+                  0x000c74                  _cr18_proccess
+                  0x000ab8                  _init_pic
+                  0x000b5a                  _init_variables
+                  0x000698                  _lora_compare_command
+                  0x00081a                  _lora_proccess
+                  0x000e26                  _main
+                  0x000428                  _memcpy
+                  0x000436                  _memset
+                  0x000444                  _strcmp
+                  0x000cd6                  _uart_error
+                  0x000c94                  _uart_init
+                  0x000dcc                  _uart_proccess
+                  0x000d3c                  _uart_receive
+                  0x000d92                  _uart_send
 
-Configuração de Memória
+Memory Configuration
 
-Nome             Origem             Tamanho            Atributos
+Name             Origin             Length             Attributes
 data             0x000800           0x000200           a !xr
 reset            0x000000           0x000004  
 ivt              0x000004           0x0000fc  
@@ -255,7 +255,7 @@ FPOR             0xf8000c           0x000002
 FICD             0xf8000e           0x000002  
 *default*        0x000000           0xffffffff  
 
-Script do link-editor e mapa de memória
+Linker script and memory map
 
 LOAD build/default/debug/main.o
 LOAD build/default/debug/common.o
@@ -293,7 +293,7 @@ reserve_data_0x826
                     0x0001                  __DEBUG = 0x1
                     0x0001                  __MPLAB_DEBUGGER_PK3 = 0x1
 LOAD pPIC24Fxxx
-LOAD /opt/microchip/xc16/v1.33/bin/bin/../../lib/libfx-elf.a
+LOAD c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libfx-elf.a
                     0xf80000                  __FBS = 0xf80000
                     0xf80004                  __FGS = 0xf80004
                     0xf80006                  __FOSCSEL = 0xf80006
@@ -315,40 +315,40 @@ LOAD /opt/microchip/xc16/v1.33/bin/bin/../../lib/libfx-elf.a
                   0x000002          0x2 SHORT 0x0 ((ABSOLUTE (__reset) >> 0x10) & 0x7f)
                   0x000003          0x2 SHORT 0x0
 
-.text             0x000200        0x266
+.text             0x000200        0x264
  *(.init)
- .init            0x000200         0x4c /opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-pic30-elf.a(crt0_standard.o)
-                  0x000200                  __reset
+ .init            0x000200         0x4c c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o)
                   0x000200                  __resetPRI
+                  0x000200                  __reset
                   0x00023c                  __psv_init
- .init            0x00024c         0x7c /opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-pic30-elf.a(data_init_standard.o)
-                  0x000252                  __data_init
+ .init            0x00024c         0x7c c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(data_init_standard.o)
                   0x000252                  __data_init_standard
+                  0x000252                  __data_init
  *(.user_init)
  *(.handle)
  *(.isr*)
- .isr.text        0x0002c8        0x15c build/default/debug/interrupt.o
+ .isr.text        0x0002c8        0x15a build/default/debug/interrupt.o
                   0x0002c8                  __T1Interrupt
-                  0x0002f6                  __T2Interrupt
-                  0x000354                  __U1RXInterrupt
-                  0x00037e                  __CNInterrupt
-                  0x000410                  __HLVDInterrupt
- .isr             0x000424          0x4 default_isr
-                  0x000424                  __DefaultInterrupt
+                  0x0002f4                  __T2Interrupt
+                  0x000352                  __U1RXInterrupt
+                  0x00037c                  __CNInterrupt
+                  0x00040e                  __HLVDInterrupt
+ .isr             0x000422          0x4 default_isr
+                  0x000422                  __DefaultInterrupt
  *(.libc)
  *(.libm)
  *(.libdsp)
  *(.lib*)
  .libpic30_crt_start_mode
-                  0x000428          0x2 /opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-pic30-elf.a(crt_start_mode_normal.Leo)
-                  0x000428                  __crt_start_mode_normal
-                  0x000428                  __crt_start_mode
- .libc.memcpy     0x00042a          0xe /opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-c-elf.a(memcpy.XX_eo)
-                  0x00042a                  _memcpy
- .libc.memset     0x000438          0xe /opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-c-elf.a(memset.XX_eo)
-                  0x000438                  _memset
- .libc.strcmp     0x000446         0x20 /opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-c-elf.a(strcmp.XX_eo)
-                  0x000446                  _strcmp
+                  0x000426          0x2 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(crt_start_mode_normal.Leo)
+                  0x000426                  __crt_start_mode
+                  0x000426                  __crt_start_mode_normal
+ .libc.memcpy     0x000428          0xe c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(memcpy.XX_eo)
+                  0x000428                  _memcpy
+ .libc.memset     0x000436          0xe c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(memset.XX_eo)
+                  0x000436                  _memset
+ .libc.strcmp     0x000444         0x20 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(strcmp.XX_eo)
+                  0x000444                  _strcmp
 
 usercode
  *(usercode)
@@ -381,14 +381,14 @@ __FICD
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x4438
+.debug_info       0x000000       0x4490
  *(.debug_info)
- .debug_info      0x000000        0x424 build/default/debug/main.o
- .debug_info      0x000424       0x1bc1 build/default/debug/common.o
- .debug_info      0x001fe5        0x900 build/default/debug/uart.o
- .debug_info      0x0028e5        0xa03 build/default/debug/interrupt.o
- .debug_info      0x0032e8        0xa39 build/default/debug/counters.o
- .debug_info      0x003d21        0x717 build/default/debug/lora.o
+ .debug_info      0x000000        0x42e build/default/debug/main.o
+ .debug_info      0x00042e       0x1be7 build/default/debug/common.o
+ .debug_info      0x002015        0x90a build/default/debug/uart.o
+ .debug_info      0x00291f        0xa0d build/default/debug/interrupt.o
+ .debug_info      0x00332c        0xa43 build/default/debug/counters.o
+ .debug_info      0x003d6f        0x721 build/default/debug/lora.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x776
@@ -400,14 +400,14 @@ __FICD
  .debug_abbrev    0x0004d8        0x17e build/default/debug/counters.o
  .debug_abbrev    0x000656        0x120 build/default/debug/lora.o
 
-.debug_line       0x000000        0x6e1
+.debug_line       0x000000        0x79a
  *(.debug_line)
- .debug_line      0x000000         0x90 build/default/debug/main.o
- .debug_line      0x000090        0x16d build/default/debug/common.o
- .debug_line      0x0001fd        0x141 build/default/debug/uart.o
- .debug_line      0x00033e        0x114 build/default/debug/interrupt.o
- .debug_line      0x000452        0x146 build/default/debug/counters.o
- .debug_line      0x000598        0x149 build/default/debug/lora.o
+ .debug_line      0x000000         0xa2 build/default/debug/main.o
+ .debug_line      0x0000a2        0x193 build/default/debug/common.o
+ .debug_line      0x000235        0x165 build/default/debug/uart.o
+ .debug_line      0x00039a        0x138 build/default/debug/interrupt.o
+ .debug_line      0x0004d2        0x16a build/default/debug/counters.o
+ .debug_line      0x00063c        0x15e build/default/debug/lora.o
 
 .debug_frame      0x000000        0x3d4
  *(.debug_frame)
@@ -824,9 +824,9 @@ __FICD
                     0x0220                  UART1 = 0x220
                     0x0220                  _UART1 = 0x220
 START GROUP
-LOAD /opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-pic30-elf.a
-LOAD /opt/microchip/xc16/v1.33/bin/bin/../../lib/libm-elf.a
-LOAD /opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-c-elf.a
+LOAD c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a
+LOAD c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a
+LOAD c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a
 END GROUP
 OUTPUT(dist/default/debug/CR-18.X.debug.elf elf32-pic30)
 LOAD FGS
@@ -864,15 +864,15 @@ __c30_signature
  __c30_signature
                   0x00079f          0x6 build/default/debug/lora.o
  __c30_signature
-                  0x0007a5          0x6 /opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-pic30-elf.a(crt0_standard.o)
+                  0x0007a5          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o)
  __c30_signature
-                  0x0007ab          0x6 /opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-pic30-elf.a(data_init_standard.o)
+                  0x0007ab          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(data_init_standard.o)
  __c30_signature
-                  0x0007b1          0x6 /opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-c-elf.a(memcpy.XX_eo)
+                  0x0007b1          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(memcpy.XX_eo)
  __c30_signature
-                  0x0007b7          0x6 /opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-c-elf.a(memset.XX_eo)
+                  0x0007b7          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(memset.XX_eo)
  __c30_signature
-                  0x0007bd          0x6 /opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-c-elf.a(strcmp.XX_eo)
+                  0x0007bd          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(strcmp.XX_eo)
 
 .nbss               0x0850         0xe0
  .nbss              0x0850         0x90 build/default/debug/main.o
@@ -930,33 +930,33 @@ __c30_signature
  .ivt._HLVDInterrupt
                   0x0000a4          0x2 build/default/debug/interrupt.o
 
-.const              0x8466        0x128 carregando endereço 0x000466  
- .const             0x8466        0x128 build/default/debug/lora.o
+.const              0x8464        0x128 load address 0x000464  
+ .const             0x8464        0x128 build/default/debug/lora.o
 
-.text             0x00058e        0x88e
- .text            0x00058e        0x2fe build/default/debug/lora.o
-                  0x00069a                  _lora_compare_command
-                  0x000810                  _lora_proccess
- .text            0x00088c        0x220 build/default/debug/counters.o
-                  0x00088c                  _counters_reset
-                  0x0008a8                  _counters_proccess
-                  0x0008ea                  _counters_interrupt
-                  0x00093e                  _counters_init
-                  0x000980                  _counters_overflow_proccess
- .text            0x000aac        0x1ca build/default/debug/common.o
-                  0x000aac                  _init_pic
-                  0x000b4c                  _init_variables
-                  0x000b66                  _blink_led
-                  0x000c52                  _cr18_proccess
- .text            0x000c76        0x192 build/default/debug/uart.o
-                  0x000c76                  _uart_init
-                  0x000c7c                  _clean_event
-                  0x000cb8                  _uart_error
-                  0x000d1e                  _uart_receive
-                  0x000d74                  _uart_send
-                  0x000dae                  _uart_proccess
- .text            0x000e08         0x14 build/default/debug/main.o
-                  0x000e08                  _main
+.text             0x00058c        0x8ae
+ .text            0x00058c        0x30a build/default/debug/lora.o
+                  0x000698                  _lora_compare_command
+                  0x00081a                  _lora_proccess
+ .text            0x000896        0x222 build/default/debug/counters.o
+                  0x000896                  _counters_reset
+                  0x0008b2                  _counters_proccess
+                  0x0008f4                  _counters_interrupt
+                  0x000948                  _counters_init
+                  0x00098a                  _counters_overflow_proccess
+ .text            0x000ab8        0x1dc build/default/debug/common.o
+                  0x000ab8                  _init_pic
+                  0x000b5a                  _init_variables
+                  0x000b88                  _blink_led
+                  0x000c74                  _cr18_proccess
+ .text            0x000c94        0x192 build/default/debug/uart.o
+                  0x000c94                  _uart_init
+                  0x000c9a                  _clean_event
+                  0x000cd6                  _uart_error
+                  0x000d3c                  _uart_receive
+                  0x000d92                  _uart_send
+                  0x000dcc                  _uart_proccess
+ .text            0x000e26         0x14 build/default/debug/main.o
+                  0x000e26                  _main
 
-.dinit            0x000e1c          0xe
- .dinit           0x000e1c          0xe data_init
+.dinit            0x000e3a          0xe
+ .dinit           0x000e3a          0xe data_init
