@@ -12,6 +12,9 @@ timeout_t timeout_keepalive;
 timeout_t timeout_instalation;
 timeout_t timeout_blink_led_on;
 timeout_t timeout_blink_led_off;
+timeout_t timeout_disable_lora;
+timeout_t timeout_enabling_lora;
+timeout_t timeout_sleep;
 
 /*
  * Reseta temporizador
@@ -55,6 +58,9 @@ void counters_interrupt(uint8_t type) {
             counters_proccess(&timeout_debounce_instalation, FALSE);
             counters_proccess(&timeout_blink_led_on, FALSE);
             counters_proccess(&timeout_blink_led_off, FALSE);
+            counters_proccess(&timeout_disable_lora, FALSE);
+            counters_proccess(&timeout_enabling_lora, FALSE);
+            counters_proccess(&timeout_sleep, FALSE);
             break;
     }
 }
@@ -73,6 +79,9 @@ void counters_init() {
     timeout_instalation.count_max = TIMEOUT_INSTALATION;
     timeout_blink_led_on.count_max = TIMEOUT_BLINK_LED_ON;
     timeout_blink_led_off.count_max = TIMEOUT_BLINK_LED_OFF;
+    timeout_disable_lora.count_max = TIMEOUT_DISABLE_LORA;
+    timeout_enabling_lora.count_max = TIMEOUT_ENABLING_LORA;
+    timeout_sleep.count_max = TIMEOUT_SLEEP;
 
 }
 
@@ -166,5 +175,30 @@ void counters_overflow_proccess(void) {
         GREEN = 0;
         if (--cr18.led.number_blink != 0)
             counters_reset(&timeout_blink_led_on, TRUE);
+    }
+
+    /* Tempo ocioso para desligar lora */
+    if (timeout_disable_lora.overflow == TRUE) {
+        timeout_disable_lora.overflow = FALSE;
+        LORA = TRUE;
+        Nop();
+        U1STAbits.UTXEN = 0;
+        TRISBbits.TRISB14 = 1;
+        cr18.lora.status = DISABLED;
+    }
+
+    /* Tempo de inicialização lora */
+    if (timeout_enabling_lora.overflow == TRUE) {
+        timeout_enabling_lora.overflow = FALSE;
+        if (cr18.lora.config == TRUE)
+            cr18.lora.status = READY;
+        else
+            cr18.lora.status = CONFIG;
+    }
+
+    /* Tempo para entrar em sleep */
+    if (timeout_sleep.overflow == TRUE) {
+        timeout_sleep.overflow = FALSE;
+        Sleep();
     }
 }

@@ -22,6 +22,7 @@ void blink_led(void);
 void cr18_proccess();
 
 /* lora */
+void clean_event();
 void lora_proccess();
 uint8_t lora_compare_command();
 

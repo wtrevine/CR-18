@@ -15,13 +15,11 @@ void init_pic(void) {
     /* Configura PORTs */
     PORTA = 0;
     PORTB = 0;
-    TRISA = 0;
-    TRISB = 0;
-    LORA = TRUE;
 
-    TRISAbits.TRISA4 = 1;
-    TRISBbits.TRISB4 = 1;
-    TRISBbits.TRISB15 = 1;
+    TRISAbits.TRISA3 = 0;
+    TRISBbits.TRISB8 = 0;
+    TRISBbits.TRISB9 = 0;
+    TRISBbits.TRISB14 = 0;
 
     /* Configura TIMER 1 - 10s */
     T1CONbits.TON = 1;
@@ -84,8 +82,9 @@ void init_variables(void) {
 
     cr18.status = STARTED;
 
-    cr18.lora.status = CONFIG;
+    cr18.lora.status = DISABLED;
     cr18.lora.config = FALSE;
+    cr18.lora.join = FALSE;
     cr18.lora.command = COMMAND_NULL;
 
     cr18.uart.status = IDLE;
@@ -95,6 +94,8 @@ void init_variables(void) {
 
     if (BUTTON_BACK == FALSE)
         cr18.lora.instalation = TRUE;
+
+    counters_reset(&timeout_enabling_lora, TRUE);
 }
 
 void blink_led(void) {
@@ -165,28 +166,6 @@ void blink_led(void) {
 }
 
 void cr18_proccess() {
-    switch (cr18.status) {
-        case STARTED:
-            break;
-
-        case START:
-            break;
-
-        case VIOLATION:
-            break;
-
-        case ACTIVE:
-            break;
-
-        case ALERT:
-            break;
-
-        case ERROR:
-            break;
-
-        default:
-            break;
-    }
     if (cr18.status != cr18.status_previous) {
         cr18.status_previous = cr18.status;
         cr18.led.period = 0;
@@ -195,4 +174,13 @@ void cr18_proccess() {
         GREEN = 0;
         IFS0bits.T1IF = TRUE;
     }
+    if (LORA == TRUE &&
+            cr18.led.number_blink == 0 &&
+            timeout_debounce_alert.enable == FALSE &&
+            timeout_debounce_violation.enable == FALSE &&
+            timeout_debounce_instalation.enable == FALSE) {
+        if (timeout_sleep.enable == FALSE)
+            counters_reset(&timeout_sleep, TRUE);
+    } else
+        counters_reset(&timeout_sleep, FALSE);
 }

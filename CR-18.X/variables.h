@@ -31,6 +31,9 @@ extern timeout_t timeout_keepalive;
 extern timeout_t timeout_instalation;
 extern timeout_t timeout_blink_led_on;
 extern timeout_t timeout_blink_led_off;
+extern timeout_t timeout_disable_lora;
+extern timeout_t timeout_enabling_lora;
+extern timeout_t timeout_sleep;
 //*****************************************************************************
 #endif
 

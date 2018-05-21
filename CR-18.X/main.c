@@ -48,7 +48,7 @@ int main(void) {
     init_variables();
     
     while (1) {
-        ClrWdt();
+        //ClrWdt();
         cr18_proccess();
         lora_proccess();
         uart_proccess();

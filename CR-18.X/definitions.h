@@ -50,6 +50,9 @@
 #define TIMEOUT_DEBOUNCE_INSTALATION    3000    // Timeout de debounce botão instalado
 #define TIMEOUT_BLINK_LED_ON            100     // Timeout led ligado
 #define TIMEOUT_BLINK_LED_OFF           100     // Timeout led desligado
+#define TIMEOUT_DISABLE_LORA            500     // Timeout ocioso para desligar lora
+#define TIMEOUT_ENABLING_LORA           1000    // Timeout para start do lora
+#define TIMEOUT_SLEEP                   50     // Timeout para entrat em sleep
 
 
 /* Timeout 10 SECONDS */
@@ -61,7 +64,7 @@
 #define SIZE_BUFFER 60
 
 /* Erros de serial para reinicializar */
-#define ERROR_NUMBER 3
+#define ERROR_NUMBER 1
 
 //************************************************************************ lora
 
@@ -99,6 +102,8 @@ typedef struct {
     uint8_t error_buffer;
     uint8_t error_aswer;
     uint8_t config;
+    uint8_t join;
+    uint8_t pause;
     uint8_t instalation;
     event_t event;
 } lora_t;
@@ -146,6 +151,7 @@ enum status_cr18 {
 enum status_lora {
     DISABLED = 0, // Modulo desligado
     CONFIG, // Configurando
+    JOIN, // Juntando-se a rede LoRaWan
     READY, // Modo configurado e pronto para uso
     SENDING, // Fazendo envio de pacote
 };
@@ -190,14 +196,16 @@ typedef enum {
     MAC_SET_DEVADDR,
     MAC_SET_NWKSKEY,
     MAC_SET_APPSKEY,
-    MAC_JOIN_ABP,
     //MAC_SET_DEVEUI,
     //MAC_SET_APPEUI,
     //MAC_SET_APPKEY,
     //MAC_JOIN_OTAA,
     MAC_SET_ADRON,
     MAC_SAVE,
-    MAC_TX_CNF
+    MAC_JOIN_ABP,
+    MAC_TX_CNF,
+    MAC_PAUSE,
+    RADIO_TX
 } lora_state;
 //*****************************************************************************
 #endif
