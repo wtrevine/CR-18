@@ -27,7 +27,7 @@
 #define LED_STARTED_CYCLE       200
 #define LED_STARTED_PERIOD_ON   100
 
-#define LED_START_PERIOD        2
+#define LED_START_PERIOD        1
 #define LED_START_BLINK         2
 #define LED_VIOLATION_PERIOD    1
 #define LED_VIOLATION_BLINK     5
@@ -38,11 +38,6 @@
 #define LED_ERROR_PERIOD        1
 #define LED_ERROR_BLINK         10
 
-//#define TIME_START              3000
-//#define TIME_VIOLATION          15000
-//#define TIME_ALERT              15000
-//#define TIME_ERROR              5000
-
 /* Timeout 1 MILLISECONDS */
 #define TIMEOUT_UART_RECEIVE            2000    // Timeout para resposta do Lora
 #define TIMEOUT_DEBOUNCE_ALERT          50      // Timeout de debounce botão alerta
@@ -52,19 +47,18 @@
 #define TIMEOUT_BLINK_LED_OFF           100     // Timeout led desligado
 #define TIMEOUT_DISABLE_LORA            500     // Timeout ocioso para desligar lora
 #define TIMEOUT_ENABLING_LORA           1000    // Timeout para start do lora
-#define TIMEOUT_SLEEP                   50     // Timeout para entrat em sleep
-
+#define TIMEOUT_SLEEP                   50      // Timeout para entrat em sleep
 
 /* Timeout 10 SECONDS */
 #define TIMEOUT_KEEPALIVE       8640    // Timeout para envio de keepalive (24 horas)
-#define TIMEOUT_INSTALATION     2       // Timeout para tempo de instação, antes de habilitar violação
-#define TIMEOUT_ALERT           2     // Timeout de debounce botão alerta
-#define TIMEOUT_VIOLATION       2    // Timeout de debounce botão violação
+#define TIMEOUT_INSTALATION     6       // Timeout para tempo de instação, antes de habilitar violação
+#define TIMEOUT_ALERT           6       // Timeout alerta
+#define TIMEOUT_VIOLATION       6       // Timeout violação
 
 #define SIZE_BUFFER 60
 
 /* Erros de serial para reinicializar */
-#define ERROR_NUMBER 1
+#define ERROR_NUMBER 3
 
 //************************************************************************ lora
 

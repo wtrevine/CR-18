@@ -59,5 +59,25 @@ void __attribute__((interrupt, auto_psv)) _ISR _CNInterrupt(void) {
 void __attribute__((interrupt, auto_psv)) _ISR _HLVDInterrupt(void) {
     IFS4bits.HLVDIF = FALSE;
     //cr18.lora.event.low_battery = TRUE;
+}
 
+
+void __attribute__((interrupt, auto_psv)) _OscillatorFail(void) {
+    INTCON1bits.OSCFAIL = 0;
+    while(1);
+}
+
+void __attribute__((interrupt, auto_psv)) _AddressError(void) {
+    INTCON1bits.ADDRERR = 0;
+    while(1);
+}
+
+void __attribute__((interrupt, auto_psv)) _StackError(void) {
+    INTCON1bits.STKERR = 0;
+    while(1);
+}
+
+void __attribute__((interrupt, auto_psv)) _MathError(void) {
+    INTCON1bits.MATHERR = 0;
+    while(1);
 }

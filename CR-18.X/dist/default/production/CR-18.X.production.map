@@ -86,18 +86,22 @@ Program Memory  [Origin = 0x200, Length = 0x1400]
 
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
-.text                        0x200               0x264           0x396  (918)
-.const                       0x464               0x182           0x243  (579)
-.text                        0x5e6               0xa20           0xf30  (3888)
-.dinit                      0x1006                 0xe            0x15  (21)
+.text                        0x200               0x29c           0x3ea  (1002)
+.const                       0x49c               0x182           0x243  (579)
+.text                        0x61e               0xa20           0xf30  (3888)
+.dinit                      0x103e                 0xe            0x15  (21)
 
-                 Total program memory used (bytes):         0x151e  (5406) 70%
+                 Total program memory used (bytes):         0x1572  (5490) 71%
 
 
 Ivt Memory  [Origin = 0x4, Length = 0xfc]
 
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
+.ivt._OscillatorFail           0x6                 0x2             0x3  (3)
+.ivt._AddressError             0x8                 0x2             0x3  (3)
+.ivt._StackError               0xa                 0x2             0x3  (3)
+.ivt._MathError                0xc                 0x2             0x3  (3)
 .ivt._T1Interrupt             0x1a                 0x2             0x3  (3)
 .ivt._T2Interrupt             0x22                 0x2             0x3  (3)
 .ivt._U1RXInterrupt           0x2a                 0x2             0x3  (3)
@@ -169,38 +173,46 @@ External Symbols in Program Memory (by address):
                   0x000352                  __U1RXInterrupt
                   0x00037c                  __CNInterrupt
                   0x00040e                  __HLVDInterrupt
-                  0x000422                  __DefaultInterrupt
-                  0x000428                  _memcpy
-                  0x000436                  _memset
-                  0x000444                  _strcmp
-                  0x0005e6                  _clean_event
-                  0x00078e                  _lora_compare_command
-                  0x00093e                  _lora_proccess
-                  0x0009fa                  _counters_reset
-                  0x000a16                  _counters_proccess
-                  0x000a58                  _counters_interrupt
-                  0x000abe                  _counters_init
-                  0x000b12                  _counters_overflow_proccess
-                  0x000c86                  _init_pic
-                  0x000d24                  _init_variables
-                  0x000d58                  _blink_led
-                  0x000e44                  _cr18_proccess
-                  0x000e9e                  _uart_init
-                  0x000ea4                  _uart_error
-                  0x000f0a                  _uart_receive
-                  0x000f60                  _uart_send
-                  0x000f9a                  _uart_proccess
-                  0x000ff4                  _main
+                  0x000422                  __OscillatorFail
+                  0x000430                  __AddressError
+                  0x00043e                  __StackError
+                  0x00044c                  __MathError
+                  0x00045a                  __DefaultInterrupt
+                  0x000460                  _memcpy
+                  0x00046e                  _memset
+                  0x00047c                  _strcmp
+                  0x00061e                  _clean_event
+                  0x0007c6                  _lora_compare_command
+                  0x000976                  _lora_proccess
+                  0x000a32                  _counters_reset
+                  0x000a4e                  _counters_proccess
+                  0x000a90                  _counters_interrupt
+                  0x000af6                  _counters_init
+                  0x000b4a                  _counters_overflow_proccess
+                  0x000cbe                  _init_pic
+                  0x000d5c                  _init_variables
+                  0x000d90                  _blink_led
+                  0x000e7c                  _cr18_proccess
+                  0x000ed6                  _uart_init
+                  0x000edc                  _uart_error
+                  0x000f42                  _uart_receive
+                  0x000f98                  _uart_send
+                  0x000fd2                  _uart_proccess
+                  0x00102c                  _main
                   0xf80000                  __FBS.sec
                   0xf80004                  __FGS.sec
 
 External Symbols in Program Memory (by name):
 
+                  0x000430                  __AddressError
                   0x00037c                  __CNInterrupt
-                  0x000422                  __DefaultInterrupt
+                  0x00045a                  __DefaultInterrupt
                   0xf80000                  __FBS.sec
                   0xf80004                  __FGS.sec
                   0x00040e                  __HLVDInterrupt
+                  0x00044c                  __MathError
+                  0x000422                  __OscillatorFail
+                  0x00043e                  __StackError
                   0x0002c8                  __T1Interrupt
                   0x0002f4                  __T2Interrupt
                   0x000352                  __U1RXInterrupt
@@ -208,27 +220,27 @@ External Symbols in Program Memory (by name):
                   0x000252                  __data_init_standard
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
-                  0x000d58                  _blink_led
-                  0x0005e6                  _clean_event
-                  0x000abe                  _counters_init
-                  0x000a58                  _counters_interrupt
-                  0x000b12                  _counters_overflow_proccess
-                  0x000a16                  _counters_proccess
-                  0x0009fa                  _counters_reset
-                  0x000e44                  _cr18_proccess
-                  0x000c86                  _init_pic
-                  0x000d24                  _init_variables
-                  0x00078e                  _lora_compare_command
-                  0x00093e                  _lora_proccess
-                  0x000ff4                  _main
-                  0x000428                  _memcpy
-                  0x000436                  _memset
-                  0x000444                  _strcmp
-                  0x000ea4                  _uart_error
-                  0x000e9e                  _uart_init
-                  0x000f9a                  _uart_proccess
-                  0x000f0a                  _uart_receive
-                  0x000f60                  _uart_send
+                  0x000d90                  _blink_led
+                  0x00061e                  _clean_event
+                  0x000af6                  _counters_init
+                  0x000a90                  _counters_interrupt
+                  0x000b4a                  _counters_overflow_proccess
+                  0x000a4e                  _counters_proccess
+                  0x000a32                  _counters_reset
+                  0x000e7c                  _cr18_proccess
+                  0x000cbe                  _init_pic
+                  0x000d5c                  _init_variables
+                  0x0007c6                  _lora_compare_command
+                  0x000976                  _lora_proccess
+                  0x00102c                  _main
+                  0x000460                  _memcpy
+                  0x00046e                  _memset
+                  0x00047c                  _strcmp
+                  0x000edc                  _uart_error
+                  0x000ed6                  _uart_init
+                  0x000fd2                  _uart_proccess
+                  0x000f42                  _uart_receive
+                  0x000f98                  _uart_send
 
 Memory Configuration
 
@@ -280,7 +292,7 @@ LOAD c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libfx-elf.a
                   0x000002          0x2 SHORT 0x0 ((ABSOLUTE (__reset) >> 0x10) & 0x7f)
                   0x000003          0x2 SHORT 0x0
 
-.text             0x000200        0x264
+.text             0x000200        0x29c
  *(.init)
  .init            0x000200         0x4c c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o)
                   0x000200                  __resetPRI
@@ -292,28 +304,32 @@ LOAD c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libfx-elf.a
  *(.user_init)
  *(.handle)
  *(.isr*)
- .isr.text        0x0002c8        0x15a build/default/production/interrupt.o
+ .isr.text        0x0002c8        0x192 build/default/production/interrupt.o
                   0x0002c8                  __T1Interrupt
                   0x0002f4                  __T2Interrupt
                   0x000352                  __U1RXInterrupt
                   0x00037c                  __CNInterrupt
                   0x00040e                  __HLVDInterrupt
- .isr             0x000422          0x4 default_isr
-                  0x000422                  __DefaultInterrupt
+                  0x000422                  __OscillatorFail
+                  0x000430                  __AddressError
+                  0x00043e                  __StackError
+                  0x00044c                  __MathError
+ .isr             0x00045a          0x4 default_isr
+                  0x00045a                  __DefaultInterrupt
  *(.libc)
  *(.libm)
  *(.libdsp)
  *(.lib*)
  .libpic30_crt_start_mode
-                  0x000426          0x2 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(crt_start_mode_normal.Leo)
-                  0x000426                  __crt_start_mode
-                  0x000426                  __crt_start_mode_normal
- .libc.memcpy     0x000428          0xe c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(memcpy.XX_eo)
-                  0x000428                  _memcpy
- .libc.memset     0x000436          0xe c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(memset.XX_eo)
-                  0x000436                  _memset
- .libc.strcmp     0x000444         0x20 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(strcmp.XX_eo)
-                  0x000444                  _strcmp
+                  0x00045e          0x2 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(crt_start_mode_normal.Leo)
+                  0x00045e                  __crt_start_mode
+                  0x00045e                  __crt_start_mode_normal
+ .libc.memcpy     0x000460          0xe c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(memcpy.XX_eo)
+                  0x000460                  _memcpy
+ .libc.memset     0x00046e          0xe c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(memset.XX_eo)
+                  0x00046e                  _memset
+ .libc.strcmp     0x00047c         0x20 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(strcmp.XX_eo)
+                  0x00047c                  _strcmp
 
 usercode
  *(usercode)
@@ -346,14 +362,14 @@ __FICD
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x4cab
+.debug_info       0x000000       0x4d1c
  *(.debug_info)
  .debug_info      0x000000        0x44d build/default/production/main.o
  .debug_info      0x00044d       0x1c66 build/default/production/common.o
  .debug_info      0x0020b3        0x899 build/default/production/uart.o
- .debug_info      0x00294c        0xa2c build/default/production/interrupt.o
- .debug_info      0x003378        0xe44 build/default/production/counters.o
- .debug_info      0x0041bc        0xaef build/default/production/lora.o
+ .debug_info      0x00294c        0xa9d build/default/production/interrupt.o
+ .debug_info      0x0033e9        0xe44 build/default/production/counters.o
+ .debug_info      0x00422d        0xaef build/default/production/lora.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x7e9
@@ -365,23 +381,23 @@ __FICD
  .debug_abbrev    0x0004d8        0x17e build/default/production/counters.o
  .debug_abbrev    0x000656        0x193 build/default/production/lora.o
 
-.debug_line       0x000000        0x833
+.debug_line       0x000000        0x83b
  *(.debug_line)
  .debug_line      0x000000         0xa1 build/default/production/main.o
  .debug_line      0x0000a1        0x19b build/default/production/common.o
  .debug_line      0x00023c        0x157 build/default/production/uart.o
- .debug_line      0x000393        0x138 build/default/production/interrupt.o
- .debug_line      0x0004cb        0x17f build/default/production/counters.o
- .debug_line      0x00064a        0x1e9 build/default/production/lora.o
+ .debug_line      0x000393        0x140 build/default/production/interrupt.o
+ .debug_line      0x0004d3        0x17f build/default/production/counters.o
+ .debug_line      0x000652        0x1e9 build/default/production/lora.o
 
-.debug_frame      0x000000        0x3d4
+.debug_frame      0x000000        0x444
  *(.debug_frame)
  .debug_frame     0x000000         0x30 build/default/production/main.o
  .debug_frame     0x000030         0x84 build/default/production/common.o
  .debug_frame     0x0000b4         0xa0 build/default/production/uart.o
- .debug_frame     0x000154        0x140 build/default/production/interrupt.o
- .debug_frame     0x000294         0xa0 build/default/production/counters.o
- .debug_frame     0x000334         0xa0 build/default/production/lora.o
+ .debug_frame     0x000154        0x1b0 build/default/production/interrupt.o
+ .debug_frame     0x000304         0xa0 build/default/production/counters.o
+ .debug_frame     0x0003a4         0xa0 build/default/production/lora.o
 
 .debug_str        0x000000        0x3bf
  *(.debug_str)
@@ -399,7 +415,7 @@ __FICD
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0x353
+                  0x000000        0x398
  *(.debug_pubnames)
  .debug_pubnames
                   0x000000         0x24 build/default/production/main.o
@@ -408,11 +424,11 @@ __FICD
  .debug_pubnames
                   0x000076         0x60 build/default/production/uart.o
  .debug_pubnames
-                  0x0000d6         0x6b build/default/production/interrupt.o
+                  0x0000d6         0xb0 build/default/production/interrupt.o
  .debug_pubnames
-                  0x000141        0x1c5 build/default/production/counters.o
+                  0x000186        0x1c5 build/default/production/counters.o
  .debug_pubnames
-                  0x000306         0x4d build/default/production/lora.o
+                  0x00034b         0x4d build/default/production/lora.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -898,33 +914,53 @@ __c30_signature
  .ivt._HLVDInterrupt
                   0x0000a4          0x2 build/default/production/interrupt.o
 
-.const              0x8464        0x182 load address 0x000464  
- .const             0x8464        0x182 build/default/production/lora.o
+.ivt._OscillatorFail
+                  0x000006          0x2
+ .ivt._OscillatorFail
+                  0x000006          0x2 build/default/production/interrupt.o
 
-.text             0x0005e6        0xa20
- .text            0x0005e6        0x414 build/default/production/lora.o
-                  0x0005e6                  _clean_event
-                  0x00078e                  _lora_compare_command
-                  0x00093e                  _lora_proccess
- .text            0x0009fa        0x28c build/default/production/counters.o
-                  0x0009fa                  _counters_reset
-                  0x000a16                  _counters_proccess
-                  0x000a58                  _counters_interrupt
-                  0x000abe                  _counters_init
-                  0x000b12                  _counters_overflow_proccess
- .text            0x000c86        0x218 build/default/production/common.o
-                  0x000c86                  _init_pic
-                  0x000d24                  _init_variables
-                  0x000d58                  _blink_led
-                  0x000e44                  _cr18_proccess
- .text            0x000e9e        0x156 build/default/production/uart.o
-                  0x000e9e                  _uart_init
-                  0x000ea4                  _uart_error
-                  0x000f0a                  _uart_receive
-                  0x000f60                  _uart_send
-                  0x000f9a                  _uart_proccess
- .text            0x000ff4         0x12 build/default/production/main.o
-                  0x000ff4                  _main
+.ivt._AddressError
+                  0x000008          0x2
+ .ivt._AddressError
+                  0x000008          0x2 build/default/production/interrupt.o
 
-.dinit            0x001006          0xe
- .dinit           0x001006          0xe data_init
+.ivt._StackError
+                  0x00000a          0x2
+ .ivt._StackError
+                  0x00000a          0x2 build/default/production/interrupt.o
+
+.ivt._MathError
+                  0x00000c          0x2
+ .ivt._MathError
+                  0x00000c          0x2 build/default/production/interrupt.o
+
+.const              0x849c        0x182 load address 0x00049c  
+ .const             0x849c        0x182 build/default/production/lora.o
+
+.text             0x00061e        0xa20
+ .text            0x00061e        0x414 build/default/production/lora.o
+                  0x00061e                  _clean_event
+                  0x0007c6                  _lora_compare_command
+                  0x000976                  _lora_proccess
+ .text            0x000a32        0x28c build/default/production/counters.o
+                  0x000a32                  _counters_reset
+                  0x000a4e                  _counters_proccess
+                  0x000a90                  _counters_interrupt
+                  0x000af6                  _counters_init
+                  0x000b4a                  _counters_overflow_proccess
+ .text            0x000cbe        0x218 build/default/production/common.o
+                  0x000cbe                  _init_pic
+                  0x000d5c                  _init_variables
+                  0x000d90                  _blink_led
+                  0x000e7c                  _cr18_proccess
+ .text            0x000ed6        0x156 build/default/production/uart.o
+                  0x000ed6                  _uart_init
+                  0x000edc                  _uart_error
+                  0x000f42                  _uart_receive
+                  0x000f98                  _uart_send
+                  0x000fd2                  _uart_proccess
+ .text            0x00102c         0x12 build/default/production/main.o
+                  0x00102c                  _main
+
+.dinit            0x00103e          0xe
+ .dinit           0x00103e          0xe data_init
