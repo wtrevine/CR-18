@@ -2,24 +2,24 @@
 #include "main.h"
 
 /* temporizaores*/
-timeout_t timeout_uart_receive;
-timeout_t timeout_alert;
-timeout_t timeout_violation;
-timeout_t timeout_debounce_alert;
-timeout_t timeout_debounce_violation;
-timeout_t timeout_debounce_instalation;
-timeout_t timeout_keepalive;
-timeout_t timeout_instalation;
-timeout_t timeout_blink_led_on;
-timeout_t timeout_blink_led_off;
-timeout_t timeout_disable_lora;
-timeout_t timeout_enabling_lora;
-timeout_t timeout_sleep;
+volatile timeout_t timeout_uart_receive;
+volatile timeout_t timeout_alert;
+volatile timeout_t timeout_violation;
+volatile timeout_t timeout_debounce_alert;
+volatile timeout_t timeout_debounce_violation;
+volatile timeout_t timeout_debounce_instalation;
+volatile timeout_t timeout_keepalive;
+volatile timeout_t timeout_instalation;
+volatile timeout_t timeout_blink_led_on;
+volatile timeout_t timeout_blink_led_off;
+volatile timeout_t timeout_disable_lora;
+volatile timeout_t timeout_enabling_lora;
+volatile timeout_t timeout_sleep;
 
 /*
  * Reseta temporizador
  */
-void counters_reset(timeout_t * time, uint8_t enable) {
+void counters_reset(volatile timeout_t * time, uint8_t enable) {
     time->count = 0;
     time->enable = enable;
     time->overflow = FALSE;
@@ -28,7 +28,7 @@ void counters_reset(timeout_t * time, uint8_t enable) {
 /*
  * Processa temporizador
  */
-void counters_proccess(timeout_t * sData, uint8_t ReStart) {
+void counters_proccess(volatile timeout_t * sData, uint8_t ReStart) {
     if (sData->enable == TRUE) {
         if ((++sData->count) >= sData->count_max) {
             sData->count = 0;

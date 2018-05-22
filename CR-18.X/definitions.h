@@ -43,15 +43,15 @@
 #define TIMEOUT_DEBOUNCE_ALERT          50      // Timeout de debounce botão alerta
 #define TIMEOUT_DEBOUNCE_VIOLATION      1500    // Timeout de debounce botão violado
 #define TIMEOUT_DEBOUNCE_INSTALATION    3000    // Timeout de debounce botão instalado
-#define TIMEOUT_BLINK_LED_ON            100     // Timeout led ligado
-#define TIMEOUT_BLINK_LED_OFF           100     // Timeout led desligado
+#define TIMEOUT_BLINK_LED_ON            150      // Timeout led ligado
+#define TIMEOUT_BLINK_LED_OFF           50     // Timeout led desligado
 #define TIMEOUT_DISABLE_LORA            500     // Timeout ocioso para desligar lora
 #define TIMEOUT_ENABLING_LORA           1000    // Timeout para start do lora
 #define TIMEOUT_SLEEP                   50      // Timeout para entrat em sleep
 
 /* Timeout 10 SECONDS */
 #define TIMEOUT_KEEPALIVE       8640    // Timeout para envio de keepalive (24 horas)
-#define TIMEOUT_INSTALATION     6       // Timeout para tempo de instação, antes de habilitar violação
+#define TIMEOUT_INSTALATION     3       // Timeout para tempo de instação, antes de habilitar violação
 #define TIMEOUT_ALERT           6       // Timeout alerta
 #define TIMEOUT_VIOLATION       6       // Timeout violação
 

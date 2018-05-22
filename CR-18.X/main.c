@@ -40,7 +40,7 @@
 #pragma config ICS = PGx2               // ICD Pin Placement Select (EMUC/EMUD share PGC2/PGD2)
 
 /* Variaveis globais */
-cr18_t cr18;
+volatile cr18_t cr18;
 
 int main(void) {
     init_pic();

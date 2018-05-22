@@ -1,32 +1,32 @@
 Microchip Technology Inc, v1.33 (A)
 
 Tool Name:
-  c:\program files (x86)\microchip\xc16\v1.33\bin\bin\..\bin/elf-ld.exe
+  /opt/microchip/xc16/v1.33/bin/bin/../bin/elf-ld
 
 Command:
   -p24F08KL200 \
   -o \
   dist/default/debug/CR-18.X.debug.elf \
-  -Lc:/program files (x86)/microchip/xc16/v1.33/bin/bin/.. \
-  -Lc:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib \
-  -Lc:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../support/PIC24E/gld \
-  -Lc:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../support/PIC24F/gld \
-  -Lc:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../support/PIC24H/gld \
-  -Lc:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../support/dsPIC30F/gld \
-  -Lc:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../support/dsPIC33C/gld \
-  -Lc:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../support/dsPIC33E/gld \
-  -Lc:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../support/dsPIC33F/gld \
+  -L/opt/microchip/xc16/v1.33/bin/bin/.. \
+  -L/opt/microchip/xc16/v1.33/bin/bin/../../lib \
+  -L/opt/microchip/xc16/v1.33/bin/bin/../../support/PIC24E/gld \
+  -L/opt/microchip/xc16/v1.33/bin/bin/../../support/PIC24F/gld \
+  -L/opt/microchip/xc16/v1.33/bin/bin/../../support/PIC24H/gld \
+  -L/opt/microchip/xc16/v1.33/bin/bin/../../support/dsPIC30F/gld \
+  -L/opt/microchip/xc16/v1.33/bin/bin/../../support/dsPIC33C/gld \
+  -L/opt/microchip/xc16/v1.33/bin/bin/../../support/dsPIC33E/gld \
+  -L/opt/microchip/xc16/v1.33/bin/bin/../../support/dsPIC33F/gld \
   build/default/debug/main.o \
   build/default/debug/common.o \
   build/default/debug/uart.o \
   build/default/debug/interrupt.o \
   build/default/debug/counters.o \
   build/default/debug/lora.o \
-  -TC:\\Users\\WILLIA~1\\AppData\\Local\\Temp\\tmp00001aec.00 \
-  -TC:\\Users\\WILLIA~1\\AppData\\Local\\Temp\\tmp00001aec.01 \
-  -TC:\\Users\\WILLIA~1\\AppData\\Local\\Temp\\tmp00001aec.02 \
-  -TC:\\Users\\WILLIA~1\\AppData\\Local\\Temp\\tmp00001aec.03 \
-  -TC:\\Users\\WILLIA~1\\AppData\\Local\\Temp\\tmp00001aec.04 \
+  -T/tmp/tmp0000041d.00 \
+  -T/tmp/tmp0000041d.01 \
+  -T/tmp/tmp0000041d.02 \
+  -T/tmp/tmp0000041d.03 \
+  -T/tmp/tmp0000041d.04 \
   --defsym=__MPLAB_BUILD=1 \
   --defsym=__MPLAB_DEBUG=1 \
   --defsym=__DEBUG=1 \
@@ -57,17 +57,17 @@ Command:
 Optional library libpPIC24Fxxx.a not found
 Archive member included because of file (symbol)
 
-c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o)
+/opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-pic30-elf.a(crt0_standard.o)
                               (__resetPRI)
-c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(data_init_standard.o)
-                              c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o) (__data_init_standard)
-c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(crt_start_mode_normal.Leo)
+/opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-pic30-elf.a(data_init_standard.o)
+                              /opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-pic30-elf.a(crt0_standard.o) (__data_init_standard)
+/opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-pic30-elf.a(crt_start_mode_normal.Leo)
                               (__crt_start_mode_normal)
-c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(memcpy.XX_eo)
+/opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-c-elf.a(memcpy.XX_eo)
                               build/default/debug/lora.o (_memcpy)
-c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(memset.XX_eo)
+/opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-c-elf.a(memset.XX_eo)
                               build/default/debug/uart.o (_memset)
-c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(strcmp.XX_eo)
+/opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-c-elf.a(strcmp.XX_eo)
                               build/default/debug/lora.o (_strcmp)
 
 
@@ -179,8 +179,8 @@ External Symbols in Program Memory (by address):
 
                   0x000200                  __resetPRI
                   0x00023c                  __psv_init
-                  0x000252                  __data_init_standard
                   0x000252                  __data_init
+                  0x000252                  __data_init_standard
                   0x0002c8                  __T1Interrupt
                   0x0002f4                  __T2Interrupt
                   0x000352                  __U1RXInterrupt
@@ -255,9 +255,9 @@ External Symbols in Program Memory (by name):
                   0x000f4a                  _uart_receive
                   0x000fa0                  _uart_send
 
-Memory Configuration
+Configuração de Memória
 
-Name             Origin             Length             Attributes
+Nome             Origem             Tamanho            Atributos
 data             0x000800           0x000200           a !xr
 reset            0x000000           0x000004  
 ivt              0x000004           0x0000fc  
@@ -273,7 +273,7 @@ FPOR             0xf8000c           0x000002
 FICD             0xf8000e           0x000002  
 *default*        0x000000           0xffffffff  
 
-Linker script and memory map
+Script do link-editor e mapa de memória
 
 LOAD build/default/debug/main.o
 LOAD build/default/debug/common.o
@@ -311,7 +311,7 @@ reserve_data_0x826
                     0x0001                  __DEBUG = 0x1
                     0x0001                  __MPLAB_DEBUGGER_PK3 = 0x1
 LOAD pPIC24Fxxx
-LOAD c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libfx-elf.a
+LOAD /opt/microchip/xc16/v1.33/bin/bin/../../lib/libfx-elf.a
                     0xf80000                  __FBS = 0xf80000
                     0xf80004                  __FGS = 0xf80004
                     0xf80006                  __FOSCSEL = 0xf80006
@@ -335,13 +335,13 @@ LOAD c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libfx-elf.a
 
 .text             0x000200        0x2a4
  *(.init)
- .init            0x000200         0x4c c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o)
-                  0x000200                  __resetPRI
+ .init            0x000200         0x4c /opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-pic30-elf.a(crt0_standard.o)
                   0x000200                  __reset
+                  0x000200                  __resetPRI
                   0x00023c                  __psv_init
- .init            0x00024c         0x7c c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(data_init_standard.o)
-                  0x000252                  __data_init_standard
+ .init            0x00024c         0x7c /opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-pic30-elf.a(data_init_standard.o)
                   0x000252                  __data_init
+                  0x000252                  __data_init_standard
  *(.user_init)
  *(.handle)
  *(.isr*)
@@ -362,14 +362,14 @@ LOAD c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libfx-elf.a
  *(.libdsp)
  *(.lib*)
  .libpic30_crt_start_mode
-                  0x000466          0x2 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(crt_start_mode_normal.Leo)
-                  0x000466                  __crt_start_mode
+                  0x000466          0x2 /opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-pic30-elf.a(crt_start_mode_normal.Leo)
                   0x000466                  __crt_start_mode_normal
- .libc.memcpy     0x000468          0xe c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(memcpy.XX_eo)
+                  0x000466                  __crt_start_mode
+ .libc.memcpy     0x000468          0xe /opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-c-elf.a(memcpy.XX_eo)
                   0x000468                  _memcpy
- .libc.memset     0x000476          0xe c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(memset.XX_eo)
+ .libc.memset     0x000476          0xe /opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-c-elf.a(memset.XX_eo)
                   0x000476                  _memset
- .libc.strcmp     0x000484         0x20 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(strcmp.XX_eo)
+ .libc.strcmp     0x000484         0x20 /opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-c-elf.a(strcmp.XX_eo)
                   0x000484                  _strcmp
 
 usercode
@@ -403,33 +403,33 @@ __FICD
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x4dcd
+.debug_info       0x000000       0x4dc8
  *(.debug_info)
- .debug_info      0x000000        0x44d build/default/debug/main.o
- .debug_info      0x00044d       0x1c66 build/default/debug/common.o
- .debug_info      0x0020b3        0x899 build/default/debug/uart.o
- .debug_info      0x00294c        0xb4e build/default/debug/interrupt.o
- .debug_info      0x00349a        0xe44 build/default/debug/counters.o
- .debug_info      0x0042de        0xaef build/default/debug/lora.o
+ .debug_info      0x000000        0x448 build/default/debug/main.o
+ .debug_info      0x000448       0x1c66 build/default/debug/common.o
+ .debug_info      0x0020ae        0x899 build/default/debug/uart.o
+ .debug_info      0x002947        0xb4e build/default/debug/interrupt.o
+ .debug_info      0x003495        0xe44 build/default/debug/counters.o
+ .debug_info      0x0042d9        0xaef build/default/debug/lora.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x7e9
+.debug_abbrev     0x000000        0x7f0
  *(.debug_abbrev)
- .debug_abbrev    0x000000         0x91 build/default/debug/main.o
- .debug_abbrev    0x000091        0x180 build/default/debug/common.o
- .debug_abbrev    0x000211        0x191 build/default/debug/uart.o
- .debug_abbrev    0x0003a2        0x136 build/default/debug/interrupt.o
- .debug_abbrev    0x0004d8        0x17e build/default/debug/counters.o
- .debug_abbrev    0x000656        0x193 build/default/debug/lora.o
+ .debug_abbrev    0x000000         0x98 build/default/debug/main.o
+ .debug_abbrev    0x000098        0x180 build/default/debug/common.o
+ .debug_abbrev    0x000218        0x191 build/default/debug/uart.o
+ .debug_abbrev    0x0003a9        0x136 build/default/debug/interrupt.o
+ .debug_abbrev    0x0004df        0x17e build/default/debug/counters.o
+ .debug_abbrev    0x00065d        0x193 build/default/debug/lora.o
 
-.debug_line       0x000000        0x83f
+.debug_line       0x000000        0x779
  *(.debug_line)
- .debug_line      0x000000         0xa1 build/default/debug/main.o
- .debug_line      0x0000a1        0x19b build/default/debug/common.o
- .debug_line      0x00023c        0x157 build/default/debug/uart.o
- .debug_line      0x000393        0x144 build/default/debug/interrupt.o
- .debug_line      0x0004d7        0x17f build/default/debug/counters.o
- .debug_line      0x000656        0x1e9 build/default/debug/lora.o
+ .debug_line      0x000000         0x8f build/default/debug/main.o
+ .debug_line      0x00008f        0x177 build/default/debug/common.o
+ .debug_line      0x000206        0x133 build/default/debug/uart.o
+ .debug_line      0x000339        0x120 build/default/debug/interrupt.o
+ .debug_line      0x000459        0x15b build/default/debug/counters.o
+ .debug_line      0x0005b4        0x1c5 build/default/debug/lora.o
 
 .debug_frame      0x000000        0x444
  *(.debug_frame)
@@ -846,9 +846,9 @@ __FICD
                     0x0220                  UART1 = 0x220
                     0x0220                  _UART1 = 0x220
 START GROUP
-LOAD c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a
-LOAD c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\libm-elf.a
-LOAD c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a
+LOAD /opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-pic30-elf.a
+LOAD /opt/microchip/xc16/v1.33/bin/bin/../../lib/libm-elf.a
+LOAD /opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-c-elf.a
 END GROUP
 OUTPUT(dist/default/debug/CR-18.X.debug.elf elf32-pic30)
 LOAD FGS
@@ -886,15 +886,15 @@ __c30_signature
  __c30_signature
                   0x00086d          0x6 build/default/debug/lora.o
  __c30_signature
-                  0x000873          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o)
+                  0x000873          0x6 /opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-pic30-elf.a(crt0_standard.o)
  __c30_signature
-                  0x000879          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-pic30-elf.a(data_init_standard.o)
+                  0x000879          0x6 /opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-pic30-elf.a(data_init_standard.o)
  __c30_signature
-                  0x00087f          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(memcpy.XX_eo)
+                  0x00087f          0x6 /opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-c-elf.a(memcpy.XX_eo)
  __c30_signature
-                  0x000885          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(memset.XX_eo)
+                  0x000885          0x6 /opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-c-elf.a(memset.XX_eo)
  __c30_signature
-                  0x00088b          0x6 c:/program files (x86)/microchip/xc16/v1.33/bin/bin/../../lib\liblega-c-elf.a(strcmp.XX_eo)
+                  0x00088b          0x6 /opt/microchip/xc16/v1.33/bin/bin/../../lib/liblega-c-elf.a(strcmp.XX_eo)
 
 .nbss               0x0850         0xfa
  .nbss              0x0850         0x92 build/default/debug/main.o
@@ -975,7 +975,7 @@ __c30_signature
  .ivt._MathError
                   0x00000c          0x2 build/default/debug/interrupt.o
 
-.const              0x84a4        0x182 load address 0x0004a4  
+.const              0x84a4        0x182 carregando endereço 0x0004a4  
  .const             0x84a4        0x182 build/default/debug/lora.o
 
 .text             0x000626        0xa20
