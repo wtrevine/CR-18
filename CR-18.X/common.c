@@ -89,8 +89,8 @@ void init_variables(void) {
 
     cr18.uart.status = IDLE;
 
-    cr18.bt_front_previous = BUTTON_FRONT;
-    cr18.bt_back_previous = BUTTON_BACK;
+    cr18.button.bt_front_previous = BUTTON_FRONT;
+    cr18.button.bt_back_previous = BUTTON_BACK;
 
     if (BUTTON_BACK == FALSE)
         cr18.lora.instalation = TRUE;
@@ -143,6 +143,16 @@ void blink_led(void) {
             }
             break;
 
+        case ALERT_DISABLE:
+            if (++cr18.led.period >= LED_ALERT_DISABLE_PERIOD) {
+                cr18.led.period = 0;
+                cr18.led.number_blink = LED_ALERT_DISABLE_BLINK;
+                cr18.led.led_color_active = LED_GREEN;
+                GREEN = 1;
+                counters_reset(&timeout_blink_led_off, TRUE);
+            }
+            break;
+
         case ERROR:
             if (++cr18.led.period >= LED_ERROR_PERIOD) {
                 cr18.led.period = 0;
@@ -165,18 +175,23 @@ void blink_led(void) {
     }
 }
 
+void reset_led(void) {
+    cr18.led.period = 0;
+    RED = 0;
+    Nop();
+    GREEN = 0;
+    IFS0bits.T1IF = TRUE;
+}
+
 void cr18_proccess() {
     if (cr18.status != cr18.status_previous) {
         cr18.status_previous = cr18.status;
-        cr18.led.period = 0;
-        RED = 0;
-        Nop();
-        GREEN = 0;
-        IFS0bits.T1IF = TRUE;
+        reset_led();
     }
     if (LORA == TRUE &&
             cr18.led.number_blink == 0 &&
             timeout_debounce_alert.enable == FALSE &&
+            timeout_debounce_alert_disable.enable == FALSE &&
             timeout_debounce_violation.enable == FALSE &&
             timeout_debounce_instalation.enable == FALSE) {
         if (timeout_sleep.enable == FALSE)

@@ -6,6 +6,7 @@ volatile timeout_t timeout_uart_receive;
 volatile timeout_t timeout_alert;
 volatile timeout_t timeout_violation;
 volatile timeout_t timeout_debounce_alert;
+volatile timeout_t timeout_debounce_alert_disable;
 volatile timeout_t timeout_debounce_violation;
 volatile timeout_t timeout_debounce_instalation;
 volatile timeout_t timeout_keepalive;
@@ -45,7 +46,7 @@ void counters_proccess(volatile timeout_t * sData, uint8_t ReStart) {
 void counters_interrupt(uint8_t type) {
     switch (type) {
         case SECONDS:
-            counters_proccess(&timeout_keepalive, FALSE);
+            counters_proccess(&timeout_keepalive, TRUE);
             counters_proccess(&timeout_instalation, FALSE);
             counters_proccess(&timeout_alert, FALSE);
             counters_proccess(&timeout_violation, FALSE);
@@ -54,6 +55,7 @@ void counters_interrupt(uint8_t type) {
         case MILLISECONDS:
             counters_proccess(&timeout_uart_receive, FALSE);
             counters_proccess(&timeout_debounce_alert, FALSE);
+            counters_proccess(&timeout_debounce_alert_disable, FALSE);
             counters_proccess(&timeout_debounce_violation, FALSE);
             counters_proccess(&timeout_debounce_instalation, FALSE);
             counters_proccess(&timeout_blink_led_on, FALSE);
@@ -73,6 +75,7 @@ void counters_init() {
     timeout_alert.count_max = TIMEOUT_ALERT;
     timeout_violation.count_max = TIMEOUT_VIOLATION;
     timeout_debounce_alert.count_max = TIMEOUT_DEBOUNCE_ALERT;
+    timeout_debounce_alert_disable.count_max = TIMEOUT_DEBOUNCE_ALERT_DISABLE;
     timeout_debounce_violation.count_max = TIMEOUT_DEBOUNCE_VIOLATION;
     timeout_debounce_instalation.count_max = TIMEOUT_DEBOUNCE_INSTALATION;
     timeout_keepalive.count_max = TIMEOUT_KEEPALIVE;
@@ -82,7 +85,8 @@ void counters_init() {
     timeout_disable_lora.count_max = TIMEOUT_DISABLE_LORA;
     timeout_enabling_lora.count_max = TIMEOUT_ENABLING_LORA;
     timeout_sleep.count_max = TIMEOUT_SLEEP;
-
+    
+    counters_reset(&timeout_keepalive, TRUE);
 }
 
 /* 
@@ -103,6 +107,18 @@ void counters_overflow_proccess(void) {
         cr18.lora.event.alert = TRUE;
         T1CONbits.TON = 1;
         counters_reset(&timeout_alert, TRUE);
+        reset_led();
+    }
+
+    /* Botão de alarta desabilitado */
+    if (timeout_debounce_alert_disable.overflow == TRUE) {
+        timeout_debounce_alert_disable.overflow = FALSE;
+        cr18.button.alert_disable_send = TRUE;
+        cr18.status = ALERT_DISABLE;
+        cr18.lora.event.alert_disable = TRUE;
+        T1CONbits.TON = 1;
+        //counters_reset(&timeout_alert, TRUE);
+        reset_led();
     }
 
     /* Botão violado */
@@ -157,7 +173,7 @@ void counters_overflow_proccess(void) {
         counters_reset(&timeout_violation, TRUE);
     }
 
-    /* Tempo led aceso */
+    /* Tempo para acender led */
     if (timeout_blink_led_on.overflow == TRUE) {
         timeout_blink_led_on.overflow = FALSE;
         if (cr18.led.led_color_active == LED_RED)
@@ -167,7 +183,7 @@ void counters_overflow_proccess(void) {
         counters_reset(&timeout_blink_led_off, TRUE);
     }
 
-    /* Tempo led apagado */
+    /* Tempo para apagar led */
     if (timeout_blink_led_off.overflow == TRUE) {
         timeout_blink_led_off.overflow = FALSE;
         RED = 0;
@@ -175,6 +191,13 @@ void counters_overflow_proccess(void) {
         GREEN = 0;
         if (--cr18.led.number_blink != 0)
             counters_reset(&timeout_blink_led_on, TRUE);
+        else if (cr18.status == ALERT_DISABLE){
+            if (cr18.lora.instalation == TRUE)
+                cr18.status = ACTIVE;
+            else
+                cr18.status = OFF;
+        }
+
     }
 
     /* Tempo ocioso para desligar lora */

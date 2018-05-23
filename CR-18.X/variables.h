@@ -25,6 +25,7 @@ extern volatile timeout_t timeout_uart_receive;
 extern volatile timeout_t timeout_alert;
 extern volatile timeout_t timeout_violation;
 extern volatile timeout_t timeout_debounce_alert;
+extern volatile timeout_t timeout_debounce_alert_disable;
 extern volatile timeout_t timeout_debounce_violation;
 extern volatile timeout_t timeout_debounce_instalation;
 extern volatile timeout_t timeout_keepalive;

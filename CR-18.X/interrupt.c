@@ -34,17 +34,22 @@ void __attribute__((interrupt, auto_psv)) _ISR _U1RXInterrupt(void) {
 void __attribute__((interrupt, auto_psv)) _ISR _CNInterrupt(void) {
     IFS1bits.CNIF = FALSE;
 
-    if (BUTTON_FRONT != cr18.bt_front_previous) {
-        cr18.bt_front_previous = BUTTON_FRONT;
+    if (BUTTON_FRONT != cr18.button.bt_front_previous) {
+        cr18.button.bt_front_previous = BUTTON_FRONT;
         if (BUTTON_FRONT == FALSE) {
-            counters_reset(&timeout_debounce_alert, TRUE);
-        } else {
             counters_reset(&timeout_debounce_alert, FALSE);
+            counters_reset(&timeout_debounce_alert_disable, TRUE);
+        } else {
+            counters_reset(&timeout_debounce_alert_disable, FALSE);
+            if (cr18.button.alert_disable_send == FALSE)
+                counters_reset(&timeout_debounce_alert, TRUE);
+            else
+                cr18.button.alert_disable_send = FALSE;
         }
     }
 
-    if (BUTTON_BACK != cr18.bt_back_previous) {
-        cr18.bt_back_previous = BUTTON_BACK;
+    if (BUTTON_BACK != cr18.button.bt_back_previous) {
+        cr18.button.bt_back_previous = BUTTON_BACK;
         if (BUTTON_BACK == TRUE) {
             counters_reset(&timeout_debounce_violation, TRUE);
             counters_reset(&timeout_debounce_instalation, FALSE);
@@ -61,23 +66,22 @@ void __attribute__((interrupt, auto_psv)) _ISR _HLVDInterrupt(void) {
     //cr18.lora.event.low_battery = TRUE;
 }
 
-
 void __attribute__((interrupt, auto_psv)) _OscillatorFail(void) {
     INTCON1bits.OSCFAIL = 0;
-    while(1);
+    while (1);
 }
 
 void __attribute__((interrupt, auto_psv)) _AddressError(void) {
     INTCON1bits.ADDRERR = 0;
-    while(1);
+    while (1);
 }
 
 void __attribute__((interrupt, auto_psv)) _StackError(void) {
     INTCON1bits.STKERR = 0;
-    while(1);
+    while (1);
 }
 
 void __attribute__((interrupt, auto_psv)) _MathError(void) {
     INTCON1bits.MATHERR = 0;
-    while(1);
+    while (1);
 }

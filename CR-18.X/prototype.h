@@ -19,6 +19,7 @@ void counters_overflow_proccess(void);
 void init_pic(void);
 void init_variables(void);
 void blink_led(void);
+void reset_led(void);
 void cr18_proccess();
 
 /* lora */

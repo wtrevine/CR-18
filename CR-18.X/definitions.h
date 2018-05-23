@@ -27,20 +27,23 @@
 #define LED_STARTED_CYCLE       200
 #define LED_STARTED_PERIOD_ON   100
 
-#define LED_START_PERIOD        1
-#define LED_START_BLINK         2
-#define LED_VIOLATION_PERIOD    1
-#define LED_VIOLATION_BLINK     5
-#define LED_ACTIVE_PERIOD       1 //6
-#define LED_ACTIVE_BLINK        1
-#define LED_ALERT_PERIOD        1
-#define LED_ALERT_BLINK         2
-#define LED_ERROR_PERIOD        1
-#define LED_ERROR_BLINK         10
+#define LED_START_PERIOD            1
+#define LED_START_BLINK             2
+#define LED_VIOLATION_PERIOD        1
+#define LED_VIOLATION_BLINK         5
+#define LED_ACTIVE_PERIOD           1 //6
+#define LED_ACTIVE_BLINK            1
+#define LED_ALERT_PERIOD            1
+#define LED_ALERT_BLINK             2
+#define LED_ALERT_DISABLE_PERIOD    1
+#define LED_ALERT_DISABLE_BLINK     10
+#define LED_ERROR_PERIOD            1
+#define LED_ERROR_BLINK             10
 
 /* Timeout 1 MILLISECONDS */
 #define TIMEOUT_UART_RECEIVE            2000    // Timeout para resposta do Lora
 #define TIMEOUT_DEBOUNCE_ALERT          50      // Timeout de debounce botão alerta
+#define TIMEOUT_DEBOUNCE_ALERT_DISABLE  5000    // Timeout de debounce botão alerta desabilitado
 #define TIMEOUT_DEBOUNCE_VIOLATION      1500    // Timeout de debounce botão violado
 #define TIMEOUT_DEBOUNCE_INSTALATION    3000    // Timeout de debounce botão instalado
 #define TIMEOUT_BLINK_LED_ON            150      // Timeout led ligado
@@ -82,8 +85,9 @@ typedef struct {
 
 typedef struct {
     uint8_t type;
-    uint8_t keepalive;
     uint8_t alert;
+    uint8_t alert_disable;
+    uint8_t keepalive;
     uint8_t violation;
     uint8_t low_battery;
 } event_t;
@@ -103,13 +107,18 @@ typedef struct {
 } lora_t;
 
 typedef struct {
+    uint8_t bt_front_previous;
+    uint8_t bt_back_previous;
+    uint8_t alert_disable_send;
+} button_t;
+
+typedef struct {
     uint8_t status;
     uint8_t status_previous;
     led_t led;
     lora_t lora;
     uart_t uart;
-    uint8_t bt_front_previous;
-    uint8_t bt_back_previous;
+    button_t button;
 } cr18_t;
 //*****************************************************************************
 
@@ -137,6 +146,7 @@ enum status_cr18 {
     VIOLATION, // Violado - Botão Traseiro solto
     ACTIVE, // Ativo - Em funcionamento normal
     ALERT, // Modo alerta - Botão frontal precionado
+    ALERT_DISABLE, // Modo alerta desabilitado - Botão frontal precionado por 5s
     ERROR, // Modo de erro
     OFF // Led desligado - Aguardando instalação
 
@@ -169,8 +179,9 @@ enum type_time {
 };
 
 enum type_event {
-    EVT_KEEPALIVE = 0,
-    EVT_ALERT,
+    EVT_ALERT=0,
+    EVT_ALERT_DISABLE,
+    EVT_KEEPALIVE,
     EVT_VIOLATION,
     EVT_LOW_BATTERY
 };
@@ -187,17 +198,15 @@ typedef enum {
     COMMAND_NULL = 0,
     SYS_RESET,
     MAC_RESET,
-    MAC_SET_DEVADDR,
-    MAC_SET_NWKSKEY,
-    MAC_SET_APPSKEY,
-    //MAC_SET_DEVEUI,
-    //MAC_SET_APPEUI,
-    //MAC_SET_APPKEY,
-    //MAC_JOIN_OTAA,
-    MAC_SET_ADRON,
     MAC_SAVE,
-    MAC_JOIN_ABP,
-    MAC_TX_CNF,
+    RADIO_SET_MOD,
+    RADIO_SET_FREQ,
+    RADIO_SET_PWR,
+    RADIO_SET_SF,
+    RADIO_SET_CRC,
+    RADIO_SET_CR,
+    RADIO_SET_SYNC,
+    RADIO_SET_BW,
     MAC_PAUSE,
     RADIO_TX
 } lora_state;

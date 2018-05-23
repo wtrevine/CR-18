@@ -3,11 +3,14 @@
 void clean_event() {
     if (cr18.lora.status == SENDING) {
         switch (cr18.lora.event.type) {
-            case EVT_KEEPALIVE:
-                cr18.lora.event.keepalive = FALSE;
-                break;
             case EVT_ALERT:
                 cr18.lora.event.alert = FALSE;
+                break;
+            case EVT_ALERT_DISABLE:
+                cr18.lora.event.alert_disable = FALSE;
+                break;
+            case EVT_KEEPALIVE:
+                cr18.lora.event.keepalive = FALSE;
                 break;
             case EVT_VIOLATION:
                 cr18.lora.event.violation = FALSE;
@@ -39,77 +42,68 @@ static void load_command(uint8_t command) {
             sprintf((char*) cr18.uart.buffer_tx, "mac reset\r\n");
             break;
 
-        case MAC_SET_DEVADDR:
-            sprintf((char*) cr18.uart.buffer_tx, "mac set devaddr 001AD3EE\r\n"); //-- S9
-            break;
-
-        case MAC_SET_NWKSKEY:
-            sprintf((char*) cr18.uart.buffer_tx, "mac set nwkskey 2B7E151628AED2A6ABF7158809CF4F3C\r\n");
-            break;
-
-        case MAC_SET_APPSKEY:
-            sprintf((char*) cr18.uart.buffer_tx, "mac set appskey 2B7E151628AED2A6ABF7158809CF4F3C\r\n");
-            break;
-
-        case MAC_JOIN_ABP:
-            sprintf((char*) cr18.uart.buffer_tx, "mac join abp\r\n");
-            timeout_uart_receive.count_max = 5000;
-            cr18.lora.double_return = TRUE;
-            break;
-
-        case MAC_SET_ADRON:
-            sprintf((char*) cr18.uart.buffer_tx, "mac set adr on\r\n");
-            break;
-
         case MAC_SAVE:
             sprintf((char*) cr18.uart.buffer_tx, "mac save\r\n");
-            timeout_uart_receive.count_max = 5000;
             break;
 
-        case MAC_TX_CNF:
-            if (cr18.lora.event.keepalive) {
-                sprintf((char*) cr18.uart.buffer_tx, "mac tx cnf 1 10\r\n");
-                cr18.lora.event.type = EVT_KEEPALIVE;
-            } else if (cr18.lora.event.alert) {
-                sprintf((char*) cr18.uart.buffer_tx, "mac tx cnf 1 20\r\n");
-                cr18.lora.event.type = EVT_ALERT;
-            } else if (cr18.lora.event.violation) {
-                sprintf((char*) cr18.uart.buffer_tx, "mac tx cnf 1 30\r\n");
-                cr18.lora.event.type = EVT_VIOLATION;
-            } else if (cr18.lora.event.low_battery) {
-                sprintf((char*) cr18.uart.buffer_tx, "mac tx cnf 1 40\r\n");
-                cr18.lora.event.type = EVT_LOW_BATTERY;
-            }
-            timeout_uart_receive.count_max = 5000;
-            cr18.lora.double_return = TRUE;
+        case RADIO_SET_MOD:
+            sprintf((char*) cr18.uart.buffer_tx, "radio set mod lora\r\n");
+            break;
+
+        case RADIO_SET_FREQ:
+            sprintf((char*) cr18.uart.buffer_tx, "radio set freq 923300000\r\n");
+            break;
+
+        case RADIO_SET_PWR:
+            sprintf((char*) cr18.uart.buffer_tx, "radio set pwr 14\r\n");
+            break;
+
+        case RADIO_SET_SF:
+            sprintf((char*) cr18.uart.buffer_tx, "radio set sf sf10\r\n");
+            break;
+
+        case RADIO_SET_CRC:
+            sprintf((char*) cr18.uart.buffer_tx, "radio set crc on\r\n");
+            break;
+
+        case RADIO_SET_CR:
+            sprintf((char*) cr18.uart.buffer_tx, "radio set cr 4/5\r\n");
+            break;
+
+        case RADIO_SET_SYNC:
+            sprintf((char*) cr18.uart.buffer_tx, "radio set sync 55\r\n");
+            break;
+
+        case RADIO_SET_BW:
+            sprintf((char*) cr18.uart.buffer_tx, "radio set bw 125\r\n");
             break;
 
         case MAC_PAUSE:
             sprintf((char*) cr18.uart.buffer_tx, "mac pause\r\n");
-            timeout_uart_receive.count_max = 10000;
             break;
 
         case RADIO_TX:
-            if (cr18.lora.event.keepalive) {
+            if (cr18.lora.event.alert) {
                 sprintf((char*) cr18.uart.buffer_tx, "radio tx 10\r\n");
-                cr18.lora.event.type = EVT_KEEPALIVE;
-            } else if (cr18.lora.event.alert) {
-                sprintf((char*) cr18.uart.buffer_tx, "radio tx 20\r\n");
                 cr18.lora.event.type = EVT_ALERT;
-            } else if (cr18.lora.event.violation) {
+            } else if (cr18.lora.event.alert_disable) {
+                sprintf((char*) cr18.uart.buffer_tx, "radio tx 20\r\n");
+                cr18.lora.event.type = EVT_ALERT_DISABLE;
+            } else if (cr18.lora.event.keepalive) {
                 sprintf((char*) cr18.uart.buffer_tx, "radio tx 30\r\n");
+                cr18.lora.event.type = EVT_KEEPALIVE;
+            } else if (cr18.lora.event.violation) {
+                sprintf((char*) cr18.uart.buffer_tx, "radio tx 40\r\n");
                 cr18.lora.event.type = EVT_VIOLATION;
             } else if (cr18.lora.event.low_battery) {
-                sprintf((char*) cr18.uart.buffer_tx, "radio tx 40\r\n");
+                sprintf((char*) cr18.uart.buffer_tx, "radio tx 50\r\n");
                 cr18.lora.event.type = EVT_LOW_BATTERY;
             }
-            timeout_uart_receive.count_max = 5000;
             break;
 
         default:
-            break;
+            return;
     }
-
     cr18.uart.status = SEND;
 }
 
@@ -128,34 +122,6 @@ uint8_t lora_compare_command() {
                 error = FALSE;
             break;
 
-        case MAC_SET_DEVADDR:
-            if (strcmp((char *) cr18.uart.buffer_rx, "ok\r\n") == 0)
-                error = FALSE;
-            break;
-
-        case MAC_SET_NWKSKEY:
-            if (strcmp((char *) cr18.uart.buffer_rx, "ok\r\n") == 0)
-                error = FALSE;
-            break;
-
-        case MAC_SET_APPSKEY:
-            if (strcmp((char *) cr18.uart.buffer_rx, "ok\r\n") == 0)
-                error = FALSE;
-            break;
-
-        case MAC_JOIN_ABP:
-            if (strcmp((char *) cr18.uart.buffer_rx, "ok\r\naccepted\r\n") == 0) {
-                error = FALSE;
-                cr18.lora.status = READY;
-                cr18.lora.join = TRUE;
-            }
-            break;
-
-        case MAC_SET_ADRON:
-            if (strcmp((char *) cr18.uart.buffer_rx, "ok\r\n") == 0)
-                error = FALSE;
-            break;
-
         case MAC_SAVE:
             if (strcmp((char *) cr18.uart.buffer_rx, "ok\r\n") == 0) {
                 error = FALSE;
@@ -169,12 +135,44 @@ uint8_t lora_compare_command() {
             }
             break;
 
-        case MAC_TX_CNF:
-            if (strcmp((char *) cr18.uart.buffer_rx, "ok\r\nmac_tx_ok\r\n") == 0) {
+        case RADIO_SET_MOD:
+            if (strcmp((char *) cr18.uart.buffer_rx, "ok\r\n") == 0)
                 error = FALSE;
-                clean_event();
-                cr18.lora.status = READY;
-            }
+            break;
+
+        case RADIO_SET_FREQ:
+            if (strcmp((char *) cr18.uart.buffer_rx, "ok\r\n") == 0)
+                error = FALSE;
+            break;
+
+        case RADIO_SET_PWR:
+            if (strcmp((char *) cr18.uart.buffer_rx, "ok\r\n") == 0)
+                error = FALSE;
+            break;
+
+        case RADIO_SET_SF:
+            if (strcmp((char *) cr18.uart.buffer_rx, "ok\r\n") == 0)
+                error = FALSE;
+            break;
+
+        case RADIO_SET_CRC:
+            if (strcmp((char *) cr18.uart.buffer_rx, "ok\r\n") == 0)
+                error = FALSE;
+            break;
+
+        case RADIO_SET_CR:
+            if (strcmp((char *) cr18.uart.buffer_rx, "ok\r\n") == 0)
+                error = FALSE;
+            break;
+
+        case RADIO_SET_SYNC:
+            if (strcmp((char *) cr18.uart.buffer_rx, "ok\r\n") == 0)
+                error = FALSE;
+            break;
+
+        case RADIO_SET_BW:
+            if (strcmp((char *) cr18.uart.buffer_rx, "ok\r\n") == 0)
+                error = FALSE;
             break;
 
         case MAC_PAUSE:
@@ -199,57 +197,15 @@ uint8_t lora_compare_command() {
     return error;
 }
 
-/* 
- * Encaminha proximo comando para ser carreado
- */
-static void config(void) {
-
-    switch (++cr18.lora.command) {
-        case COMMAND_NULL:
-            break;
-
-        case SYS_RESET:
-            load_command(SYS_RESET);
-            break;
-
-        case MAC_RESET:
-            load_command(MAC_RESET);
-            break;
-
-        case MAC_SET_DEVADDR:
-            load_command(MAC_SET_DEVADDR);
-            break;
-
-        case MAC_SET_NWKSKEY:
-            load_command(MAC_SET_NWKSKEY);
-            break;
-
-        case MAC_SET_APPSKEY:
-            load_command(MAC_SET_APPSKEY);
-            break;
-
-        case MAC_SET_ADRON:
-            load_command(MAC_SET_ADRON);
-            break;
-
-        case MAC_SAVE:
-            load_command(MAC_SAVE);
-            break;
-
-        default:
-            cr18.lora.command = COMMAND_NULL;
-            break;
-    }
-}
-
 void lora_proccess() {
     if (cr18.uart.status != IDLE)
         return;
 
     switch (cr18.lora.status) {
         case DISABLED:
-            if (cr18.lora.event.alert || cr18.lora.event.keepalive ||
-                    cr18.lora.event.low_battery || cr18.lora.event.violation) {
+            if (cr18.lora.event.alert || cr18.lora.event.alert_disable ||
+                    cr18.lora.event.keepalive || cr18.lora.event.low_battery ||
+                    cr18.lora.event.violation) {
                 if (timeout_enabling_lora.enable == FALSE) {
                     counters_reset(&timeout_enabling_lora, TRUE);
                     LORA = FALSE;
@@ -262,16 +218,15 @@ void lora_proccess() {
             break;
 
         case CONFIG:
-            config();
-            break;
-
-        case JOIN:
-            load_command(MAC_JOIN_ABP);
+            if (cr18.lora.command > MAC_SAVE)
+                cr18.lora.command = COMMAND_NULL;
+            load_command(++cr18.lora.command);
             break;
 
         case READY:
-            if (cr18.lora.event.alert || cr18.lora.event.keepalive ||
-                    cr18.lora.event.low_battery || cr18.lora.event.violation) {
+            if (cr18.lora.event.alert || cr18.lora.event.alert_disable ||
+                    cr18.lora.event.keepalive || cr18.lora.event.low_battery ||
+                    cr18.lora.event.violation) {
                 cr18.lora.status = SENDING;
                 counters_reset(&timeout_disable_lora, FALSE);
             } else if (timeout_disable_lora.enable == FALSE)
@@ -279,17 +234,12 @@ void lora_proccess() {
             break;
 
         case SENDING:
-#ifdef LORAWAN
-            if (cr18.lora.join == FALSE)
-                load_command(MAC_JOIN_ABP);
-            else if (cr18.uart.status == IDLE)
-                load_command(MAC_TX_CNF);
-#else
-            if (cr18.lora.pause == FALSE)
-                load_command(MAC_PAUSE);
-            else
+            if (cr18.lora.pause == FALSE) {
+                if (cr18.lora.command < RADIO_SET_MOD || cr18.lora.command > MAC_PAUSE)
+                    cr18.lora.command = RADIO_SET_MOD - 1;
+                load_command(++cr18.lora.command);
+            } else
                 load_command(RADIO_TX);
-#endif
             break;
 
         default:
